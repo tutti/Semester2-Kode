@@ -1,0 +1,3 @@
+|20
+1|artist|navn|2015|ROCK|plateselskap
+3|Noen|Noens fantastiske CD|1999|KLASSISK|Noen utgir sine egne plater
