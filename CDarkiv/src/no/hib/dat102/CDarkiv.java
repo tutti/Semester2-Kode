@@ -1,7 +1,5 @@
 package no.hib.dat102;
 
-import java.io.IOException;
-
 import no.hib.dat102.adt.CDarkivADT;
 
 public class CDarkiv<T extends CD> implements CDarkivADT<T> {
@@ -9,16 +7,17 @@ public class CDarkiv<T extends CD> implements CDarkivADT<T> {
 	private CD[] cder;
 	private int posisjon;
 	
+	// Oppretter et nytt arkiv med plass til et gitt antall CDer
 	public CDarkiv(int plass) {
 		cder = new CD[plass];
 		posisjon = 0;
 	}
 
 	@Override
-	public void leggTilCD(T cd) throws Exception {
+	public void leggTilCD(T cd) {
 		for (int i=0; i<posisjon; ++i) {
 			if (cder[i].getCdnummer() == cd.getCdnummer()) {
-				throw new Exception("CD-nummeret finnes allerede i dette arkivet.");
+				throw new ArrayIndexOutOfBoundsException("CD-nummeret finnes allerede i dette arkivet.");
 			}
 		}
 		cder[posisjon] = cd;

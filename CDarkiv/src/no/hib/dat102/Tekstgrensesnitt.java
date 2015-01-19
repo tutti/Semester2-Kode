@@ -8,15 +8,25 @@ import java.util.Scanner;
 public class Tekstgrensesnitt {
 	
 	private static Scanner tastatur = new Scanner(System.in);
-	private static CDarkiv<CD> arkiv = null;
+	private static CDarkiv2<CD> arkiv = null;
 	private static Fil fil;
 	
 	public static void skrivUtMatchende(String søk) {
 		CD[] cder = arkiv.finnCDer(søk);
+		System.out.println("CDer som stemmer med søket:");
+		for (int i=0; i<cder.length; ++i) {
+			System.out.println(cder[i]);
+		}
+		System.out.println();
 	}
 	
 	public static void skrivUtForArtist(String søk) {
-		
+		String[] artister = arkiv.finnArtister(søk);
+		System.out.println("Artister som stemmer med søket:");
+		for (int i=0; i<artister.length; ++i) {
+			System.out.println(artister[i]);
+		}
+		System.out.println();
 	}
 	
 	public static void skrivUtStatistikk() {
@@ -60,7 +70,7 @@ public class Tekstgrensesnitt {
 		System.out.print("Skriv inn størrelsen på arkivet: ");
 		fil.nyFil(filnavn);
 		fil.størrelse = nesteInt();
-		arkiv = new CDarkiv<CD>(fil.størrelse);
+		arkiv = new CDarkiv2<CD>(fil.størrelse);
 	}
 	
 	private static void menyvalg_last_arkiv() throws IOException {
@@ -113,6 +123,8 @@ public class Tekstgrensesnitt {
 		CD cd = new CD(cdnummer, artist, navn, år, sjanger, plateselskap);
 		try {
 			arkiv.leggTilCD(cd);
+		} catch (ArrayIndexOutOfBoundsException e) {
+			System.out.println("CD-arkivet er fullt.");
 		} catch (Exception e) {
 			System.out.println("CD-nummeret finnes allerede i dette arkivet.");
 		}
@@ -194,12 +206,7 @@ public class Tekstgrensesnitt {
 		}
 		System.out.print("Skriv inn et søk: ");
 		String søk = tastatur.nextLine();
-		CD[] cder = arkiv.finnCDer(søk);
-		System.out.println("CDer som stemmer med søket:");
-		for (int i=0; i<cder.length; ++i) {
-			System.out.println(cder[i]);
-		}
-		System.out.println();
+		skrivUtMatchende(søk);
 	}
 	
 	private static void menyvalg_søk_etter_artist() throws IOException {
@@ -209,12 +216,7 @@ public class Tekstgrensesnitt {
 		}
 		System.out.print("Skriv inn et søk: ");
 		String søk = tastatur.nextLine();
-		String[] artister = arkiv.finnArtister(søk);
-		System.out.println("Artister som stemmer med søket:");
-		for (int i=0; i<artister.length; ++i) {
-			System.out.println(artister[i]);
-		}
-		System.out.println();
+		skrivUtForArtist(søk);
 	}
 	
 	private static void menyvalg_lagre_arkiv() throws IOException {

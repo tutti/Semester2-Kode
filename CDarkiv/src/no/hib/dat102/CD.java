@@ -12,6 +12,7 @@ public class CD {
 	private String plateselskap;
 	
 	public CD() {
+		// Velger "tomme" verdier for alle variabler
 		this.cdnummer = 0;
 		this.artist = "Ingen artist";
 		this.navn = "Uten navn";
@@ -22,6 +23,7 @@ public class CD {
 	
 	public CD(int cdnummer, String artist, String navn, int år,
 			Sjanger sjanger, String plateselskap) {
+		// Setter alle variabler etter konstruktørens argumenter
 		this.cdnummer = cdnummer;
 		this.artist = artist;
 		this.navn = navn;
@@ -31,14 +33,17 @@ public class CD {
 	}
 	
 	public boolean equals(Object cd) {
+		// To CDer anses som like dersom de har samme CD-nummer
 		if (!(cd instanceof CD)) return false;
 		return this.cdnummer == ((CD)cd).cdnummer;
 	}
 	
 	public String toString() {
+		// Returnerer CDen i et menneskelig leselig format
 		return String.format("[%d] %s: \"%s\", %s (%d)", cdnummer, plateselskap, navn, artist, år);
 	}
 
+	// Get- og set-metoder
 	public int getCdnummer() { return cdnummer; }
 	public void setCdnummer(int cdnummer) { this.cdnummer = cdnummer; }
 	public String getArtist() { return artist; }

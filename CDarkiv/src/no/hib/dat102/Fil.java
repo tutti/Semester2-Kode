@@ -38,12 +38,12 @@ public class Fil {
 		leser = null;
 	}
 	
-	public CDarkiv<CD> lesArkiv() throws IOException {
+	public CDarkiv2<CD> lesArkiv() throws IOException {
 		if (leser == null) throw new FileNotFoundException("Ingen fil er åpnet");
 		leser.reset();
 		String div = String.valueOf((char)leser.read());
 		størrelse = Integer.valueOf(leser.readLine());
-		CDarkiv<CD> arkiv = new CDarkiv<CD>(størrelse);
+		CDarkiv2<CD> arkiv = new CDarkiv2<CD>(størrelse);
 		for (String linje = leser.readLine(); linje != null; linje = leser.readLine()) {
 			String[] lest = linje.split(Pattern.quote(div));
 			try {
@@ -60,11 +60,11 @@ public class Fil {
 		return arkiv;
 	}
 	
-	public void skrivArkiv(CDarkiv<CD> arkiv) throws IOException {
+	public void skrivArkiv(CDarkiv2<CD> arkiv) throws IOException {
 		skrivArkiv(arkiv, '|'); // TODO: Skriv logikk for å velge divisor
 	}
 	
-	public void skrivArkiv(CDarkiv<CD> arkiv, char div) throws IOException {
+	public void skrivArkiv(CDarkiv2<CD> arkiv, char div) throws IOException {
 		if (leser == null) throw new FileNotFoundException("Ingen fil er åpnet");
 		PrintWriter skriver = new PrintWriter(new FileWriter(filnavn));
 		skriver.print(div);

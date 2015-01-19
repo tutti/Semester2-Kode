@@ -1,2 +1,3 @@
-|10
-50|Ingen|Ingenting|1999|ROCK|Ikkenoen
+|0
+1|Test1|Test1|2000|KLASSISK|Test1
+2|Test2 artist|Test2 navn|2000|ROCK|Test2 selskap
