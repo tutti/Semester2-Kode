@@ -4,13 +4,16 @@ import java.util.Calendar;
 
 public class CD {
 
-	private int cdnummer;
-	private String artist;
-	private String navn;
-	private int år;
-	private Sjanger sjanger;
-	private String plateselskap;
+	private int cdnummer; // Nummer på CD; skal være unikt
+	private String artist; // Artisten som laget CDen
+	private String navn; // Navnet på CDen
+	private int år; // Året CDen ble utgitt
+	private Sjanger sjanger; // Sjangeren CDen hører til
+	private String plateselskap; // Plateselskapet som ga ut CDen
 	
+	/**
+	 * Lager en ny CD med default-verdier. Ikke bruk en slik CD uten å sette CD-nummer.
+	 */
 	public CD() {
 		// Velger "tomme" verdier for alle variabler
 		this.cdnummer = 0;
@@ -21,6 +24,15 @@ public class CD {
 		this.plateselskap = "Ingen selskap";
 	}
 	
+	/**
+	 * Lager en ny CD med gitte verdier
+	 * @param cdnummer int CDens nummer. Skal være unikt.
+	 * @param artist String Artisten som laget CDen
+	 * @param navn String Navnet til CDen
+	 * @param år int Året CDen ble utgitt
+	 * @param sjanger Sjanger Sjangeren til CDen
+	 * @param plateselskap Plateselskapet som ga ut CDen
+	 */
 	public CD(int cdnummer, String artist, String navn, int år,
 			Sjanger sjanger, String plateselskap) {
 		// Setter alle variabler etter konstruktørens argumenter
@@ -32,12 +44,18 @@ public class CD {
 		this.plateselskap = plateselskap;
 	}
 	
+	/**
+	 * Sjekker om to CDer er samme CD. Det skal de være hvis de har samme CD-nummer.
+	 */
 	public boolean equals(Object cd) {
 		// To CDer anses som like dersom de har samme CD-nummer
 		if (!(cd instanceof CD)) return false;
 		return this.cdnummer == ((CD)cd).cdnummer;
 	}
 	
+	/**
+	 * Returnerer CDen i et lesbart format
+	 */
 	public String toString() {
 		// Returnerer CDen i et menneskelig leselig format
 		return String.format("[%d] %s: \"%s\", %s (%d)", cdnummer, plateselskap, navn, artist, år);

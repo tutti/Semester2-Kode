@@ -7,7 +7,10 @@ public class CDarkiv<T extends CD> implements CDarkivADT<T> {
 	private CD[] cder;
 	private int posisjon;
 	
-	// Oppretter et nytt arkiv med plass til et gitt antall CDer
+	/**
+	 *  Oppretter et nytt arkiv med plass til et gitt antall CDer
+	 * @param plass Antall CDer arkivet kan inneholde
+	 */
 	public CDarkiv(int plass) {
 		cder = new CD[plass];
 		posisjon = 0;

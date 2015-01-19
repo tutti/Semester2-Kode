@@ -11,7 +11,7 @@ public class CDarkiv2<T extends CD> implements CDarkivADT<T> {
 	
 	/**
 	 * Lager et nytt CD-arkiv med plass til et antall CD-er. Bruk 0 for ubegrenset plass.
-	 * @param plass 0 for ubegrenset plass, eller et tall over 0 for å begrense plass til CDer.
+	 * @param plass int 0 for ubegrenset plass, eller et tall over 0 for å begrense plass til CDer.
 	 */
 	public CDarkiv2(int plass) {
 		assert plass >= 0;
@@ -26,10 +26,6 @@ public class CDarkiv2<T extends CD> implements CDarkivADT<T> {
 	}
 
 	@Override
-	/**
-	 * Legger til en CD i arkivet.
-	 * @param cd CDen som skal legges til
-	 */
 	public void leggTilCD(T cd) {
 		if (maks > 0 && antall >= maks) {
 			throw new RuntimeException("Ikke plass til flere CDer");
@@ -48,10 +44,6 @@ public class CDarkiv2<T extends CD> implements CDarkivADT<T> {
 	}
 
 	@Override
-	/**
-	 * Sletter en CD fra arkivet
-	 * @param cdnummer Nummeret på CDen som skal slettes
-	 */
 	public void slettCD(int cdnummer) {
 		if (første == null) return;
 		if (første.getElement().getCdnummer() == cdnummer) {
@@ -71,10 +63,6 @@ public class CDarkiv2<T extends CD> implements CDarkivADT<T> {
 	}
 
 	@Override
-	/**
-	 * Finner CDer med navn som inneholder søkestrengen
-	 * @param søk Søkestrengen
-	 */
 	public CD[] finnCDer(String søk) {
 		// Start med en tom array
 		CD[] resultat = new CD[5];
@@ -82,7 +70,7 @@ public class CDarkiv2<T extends CD> implements CDarkivADT<T> {
 		
 		// Søk gjennom alle CDer
 		for (LinearNode<T> node=første; node!=null; node=node.getNeste()) {
-			if (node.getElement().getNavn().indexOf(søk) >= 0) {
+			if (node.getElement().getNavn().toUpperCase().indexOf(søk.toUpperCase()) >= 0) {
 				// Hvis arrayen er for stor for et nytt element, doble størrelsen dens
 				if (antall > resultat.length) {
 					CD[] nyResultat = new CD[antall*2];
@@ -117,7 +105,7 @@ public class CDarkiv2<T extends CD> implements CDarkivADT<T> {
 		
 		// Søk gjennom alle CDer
 		for (LinearNode<T> node=første; node!=null; node=node.getNeste()) {
-			if (node.getElement().getArtist().indexOf(søk) >= 0) {
+			if (node.getElement().getArtist().toUpperCase().indexOf(søk.toUpperCase()) >= 0) {
 				// Hvis arrayen er for stor for et nytt element, doble størrelsen dens
 				if (antall > resultat.length) {
 					String[] nyResultat = new String[antall*2];

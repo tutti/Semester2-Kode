@@ -1,3 +1,4 @@
-|20
-3|Noen|Noens fantastiske CD|1999|KLASSISK|Noen utgir sine egne plater
-2|Hanne|Nobody's Flowers|2011|ROCK|Svære Folk AS
+?20
+3?Noen?Noens fantastiske CD?1999?KLASSISK?Noen utgir sine egne plater
+2?Hanne?Nobody's Flowers?2011?ROCK?Svære Folk AS
+1?Hanne?Trees of Rock?2001?ROCK?Svære Folk AS
