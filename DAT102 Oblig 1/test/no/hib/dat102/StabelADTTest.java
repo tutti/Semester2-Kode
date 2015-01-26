@@ -36,7 +36,7 @@ public class StabelADTTest {
      */
     @Before
     public final void setup()  {
-        stabel = new KjedetStabel<Integer>();
+        stabel = new TabellStabel<Integer>();
     }
 
     /**
