@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.regex.Pattern;
+import no.hib.dat102.adt.*;
 
 /**
  * En klasse for lesing og skriving av CD-arkiver
@@ -21,9 +22,11 @@ public class Fil {
 	
 	/**
 	 * Åpner en fil for lesing, og beholder filnavnet så skriving kan utføres.
-	 * Filen åpnes ikke for skriving her, men det vil gjøres automatisk i skrivArkiv().
+	 * Filen åpnes ikke for skriving her, men det vil gjøres automatisk i
+	 * skrivArkiv().
 	 * @param filnavn String Et filnavn som skal åpnes
-	 * @throws IOException Hvis filen ikke fantes eller ikke kunne åpnes av andre grunner
+	 * @throws IOException Hvis filen ikke fantes eller ikke kunne åpnes av
+	 * andre grunner
 	 */
 	public void åpneFil(String filnavn) throws IOException {
 		// Lukk filen hvis den allerede er åpen
@@ -36,9 +39,10 @@ public class Fil {
 	}
 	
 	/**
-	 * Oppretter en ny fil og åpner den for lesing. Hvis filen finnes fra før, vil den
-	 * overskrives.
-	 * Filen åpnes ikke for skriving her, men det vil gjøres automatisk i skrivArkiv().
+	 * Oppretter en ny fil og åpner den for lesing. Hvis filen finnes fra før,
+	 * vil den overskrives.
+	 * Filen åpnes ikke for skriving her, men det vil gjøres automatisk i
+	 * skrivArkiv().
 	 * @param filnavn String Et filnavn som skal opprettes.
 	 * @throws IOException
 	 */
@@ -70,9 +74,10 @@ public class Fil {
 	 * @throws IOException Hvis ingen fil er åpnet, eller filen ikke kunne leses
 	 * @throws NumberFormatException Hvis filen ikke er riktig formatert
 	 */
-	public CDarkiv2<CD> lesArkiv() throws IOException, NumberFormatException {
+	public CDarkivADT<CD> lesArkiv() throws IOException, NumberFormatException {
 		// Sjekk om en fil er åpen, kast en feil hvis ikke.
-		if (leser == null) throw new FileNotFoundException("Ingen fil er åpnet");
+		if (leser == null)
+			throw new FileNotFoundException("Ingen fil er åpnet");
 		
 		// Gå tilbake til begynnelsen av filen
 		leser.reset();
@@ -84,10 +89,14 @@ public class Fil {
 		størrelse = Integer.valueOf(leser.readLine());
 		
 		// Opprett et CD-arkiv som skal tilsvare filen
-		CDarkiv2<CD> arkiv = new CDarkiv2<CD>(størrelse);
+		CDarkivADT<CD> arkiv = new CDarkiv<CD>(størrelse);
 		
 		// Les gjennom linjene
-		for (String linje = leser.readLine(); linje != null; linje = leser.readLine()) {
+		for (
+			String linje = leser.readLine();
+			linje != null;
+			linje = leser.readLine()
+		) {
 			// Les inn linjen og del den opp på separatoren
 			String[] lest = linje.split(Pattern.quote(div));
 			
@@ -109,10 +118,12 @@ public class Fil {
 	/**
 	 * Skriver et CD-arkiv til en åpnet fil
 	 * @param arkiv Et CD-arkiv som skal skrives
-	 * @throws IOException Hvis ingen fil er åpen, eller filen ikke kan skrives til
+	 * @throws IOException Hvis ingen fil er åpen, eller filen ikke kan skrives
+	 * til
 	 */
-	public void skrivArkiv(CDarkiv2<CD> arkiv) throws IOException {
-		if (leser == null) throw new FileNotFoundException("Ingen fil er åpnet");
+	public void skrivArkiv(CDarkivADT<CD> arkiv) throws IOException {
+		if (leser == null)
+			throw new FileNotFoundException("Ingen fil er åpnet");
 		
 		// Hent alle CDene
 		CD[] cder = arkiv.finnCDer("");
@@ -129,7 +140,8 @@ public class Fil {
 			}
 		}
 		
-		// Skriv hver enkelt CD til filen, en CD per linje, med separatoren mellom alle feltene
+		// Skriv hver enkelt CD til filen, en CD per linje, med separatoren
+		// mellom alle feltene
 		PrintWriter skriver = new PrintWriter(new FileWriter(filnavn));
 		skriver.print(div);
 		skriver.println(størrelse);

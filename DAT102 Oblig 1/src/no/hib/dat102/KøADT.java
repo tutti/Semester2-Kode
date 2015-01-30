@@ -3,7 +3,7 @@ package no.hib.dat102;
 public interface KøADT<T> {
 	/**
 	 * Dytter et nytt element inn på slutten av køen
-	 * @param element
+	 * @param element Elementet som skal inn i køen
 	 */
 	public void innKø(T element);
 	
@@ -27,7 +27,7 @@ public interface KøADT<T> {
 	
 	/**
 	 * Returnerer antall elementer i køen
-	 * @return
+	 * @return Antall elementer i køen
 	 */
 	public int getAntall();
 }

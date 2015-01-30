@@ -18,14 +18,16 @@ public interface CDarkivADT<T extends CD> {
 	/**
 	 *  Finn CDer basert på en del av navn(ene). Case-insensitiv
 	 * @param søk String Søkestrengen du vil søke etter.
-	 * @return CD[] En array av alle CDer som matcher. Har ingen overflødige array-posisjoner.
+	 * @return CD[] En array av alle CDer som matcher. Har ingen overflødige
+	 * array-posisjoner.
 	 */
 	public CD[] finnCDer(String søk);
 	
 	/**
 	 *  Finn artister basert på en del av navnene
 	 * @param søk String Søkestrengen du vil søke etter.
-	 * @return String[] En array av alle artister som matcher. Har ingen overflødige array-posisjoner.
+	 * @return String[] En array av alle artister som matcher. Har ingen
+	 * overflødige array-posisjoner.
 	 */
 	public String[] finnArtister(String søk);
 	

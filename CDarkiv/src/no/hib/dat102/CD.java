@@ -12,7 +12,8 @@ public class CD {
 	private String plateselskap; // Plateselskapet som ga ut CDen
 	
 	/**
-	 * Lager en ny CD med default-verdier. Ikke bruk en slik CD uten å sette CD-nummer.
+	 * Lager en ny CD med default-verdier. Ikke bruk en slik CD uten å sette
+	 * CD-nummer.
 	 */
 	public CD() {
 		// Velger "tomme" verdier for alle variabler
@@ -45,7 +46,8 @@ public class CD {
 	}
 	
 	/**
-	 * Sjekker om to CDer er samme CD. Det skal de være hvis de har samme CD-nummer.
+	 * Sjekker om to CDer er samme CD. Det skal de være hvis de har samme
+	 * CD-nummer.
 	 */
 	public boolean equals(Object cd) {
 		// To CDer anses som like dersom de har samme CD-nummer
@@ -58,7 +60,13 @@ public class CD {
 	 */
 	public String toString() {
 		// Returnerer CDen i et menneskelig leselig format
-		return String.format("[%d] %s: \"%s\", %s (%d)", cdnummer, plateselskap, navn, artist, år);
+		return String.format(
+			"[%d] %s: \"%s\", %s (%d)",
+			cdnummer, plateselskap,
+			navn,
+			artist,
+			år
+		);
 	}
 
 	// Get- og set-metoder
@@ -73,5 +81,7 @@ public class CD {
 	public Sjanger getSjanger() { return sjanger; }
 	public void setSjanger(Sjanger sjanger) { this.sjanger = sjanger; }
 	public String getPlateselskap() { return plateselskap; }
-	public void setPlateselskap(String plateselskap) { this.plateselskap = plateselskap; }
+	public void setPlateselskap(String plateselskap) {
+		this.plateselskap = plateselskap;
+	}
 }

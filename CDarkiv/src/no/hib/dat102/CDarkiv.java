@@ -20,7 +20,9 @@ public class CDarkiv<T extends CD> implements CDarkivADT<T> {
 	public void leggTilCD(T cd) {
 		for (int i=0; i<posisjon; ++i) {
 			if (cder[i].getCdnummer() == cd.getCdnummer()) {
-				throw new ArrayIndexOutOfBoundsException("CD-nummeret finnes allerede i dette arkivet.");
+				throw new ArrayIndexOutOfBoundsException(
+					"CD-nummeret finnes allerede i dette arkivet."
+				);
 			}
 		}
 		cder[posisjon] = cd;
@@ -51,7 +53,8 @@ public class CDarkiv<T extends CD> implements CDarkivADT<T> {
 		for (int i=0; i<posisjon; ++i) {
 			CD cd = cder[i];
 			if (cd.getNavn().indexOf(søk) >= 0) {
-				// Hvis arrayen er for stor for et nytt element, doble størrelsen dens
+				// Hvis arrayen er for stor for et nytt element,
+				// doble størrelsen dens
 				if (antall > resultat.length) {
 					CD[] nyResultat = new CD[antall*2];
 					for (int j=0; j<antall; ++j) {
@@ -59,13 +62,15 @@ public class CDarkiv<T extends CD> implements CDarkivADT<T> {
 					}
 					resultat = nyResultat;
 				}
-				// Hvis CDens navn matcher søkeargumentet, legg den inn i arrayen
+				// Hvis CDens navn matcher søkeargumentet,
+				// legg den inn i arrayen
 				resultat[antall] = cd;
 				++antall;
 			}
 		}
 		
-		// Hvis det er tomme elementer på slutten av arrayen, reduser arrayens størrelse
+		// Hvis det er tomme elementer på slutten av arrayen,
+		// reduser arrayens størrelse
 		if (antall < resultat.length) {
 			CD[] nyResultat = new CD[antall];
 			for (int i=0; i<antall; ++i) {
@@ -87,7 +92,8 @@ public class CDarkiv<T extends CD> implements CDarkivADT<T> {
 		for (int i=0; i<posisjon; ++i) {
 			CD cd = cder[i];
 			if (cd.getArtist().indexOf(søk) >= 0) {
-				// Hvis arrayen er for stor for et nytt element, doble størrelsen dens
+				// Hvis arrayen er for stor for et nytt element,
+				// doble størrelsen dens
 				if (antall > resultat.length) {
 					String[] nyResultat = new String[antall*2];
 					for (int j=0; j<antall; ++j) {
@@ -95,13 +101,15 @@ public class CDarkiv<T extends CD> implements CDarkivADT<T> {
 					}
 					resultat = nyResultat;
 				}
-				// Hvis artistens navn matcher søkeargumentet, legg den inn i arrayen
+				// Hvis artistens navn matcher søkeargumentet,
+				// legg den inn i arrayen
 				resultat[antall] = cd.getArtist();
 				++antall;
 			}
 		}
 		
-		// Hvis det er tomme elementer på slutten av arrayen, reduser arrayens størrelse
+		// Hvis det er tomme elementer på slutten av arrayen,
+		// reduser arrayens størrelse
 		if (antall < resultat.length) {
 			String[] nyResultat = new String[antall];
 			for (int i=0; i<antall; ++i) {

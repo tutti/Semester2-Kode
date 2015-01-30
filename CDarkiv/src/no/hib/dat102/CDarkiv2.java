@@ -10,8 +10,10 @@ public class CDarkiv2<T extends CD> implements CDarkivADT<T> {
 	private int maks = 0;
 	
 	/**
-	 * Lager et nytt CD-arkiv med plass til et antall CD-er. Bruk 0 for ubegrenset plass.
-	 * @param plass int 0 for ubegrenset plass, eller et tall over 0 for å begrense plass til CDer.
+	 * Lager et nytt CD-arkiv med plass til et antall CD-er.
+	 * Bruk 0 for ubegrenset plass.
+	 * @param plass int 0 for ubegrenset plass, eller et tall over 0 for å
+	 * begrense plass til CDer.
 	 */
 	public CDarkiv2(int plass) {
 		assert plass >= 0;
@@ -52,7 +54,11 @@ public class CDarkiv2<T extends CD> implements CDarkivADT<T> {
 			return;
 		}
 		LinearNode<T> forrige = første;
-		for (LinearNode<T> node=første.getNeste(); node!=null; node=node.getNeste()) {
+		for (
+			LinearNode<T> node=første.getNeste();
+			node!=null;
+			node=node.getNeste()
+		) {
 			if (node.getElement().getCdnummer() == cdnummer) {
 				forrige.setNeste(node.getNeste());
 				--antall;
@@ -70,8 +76,14 @@ public class CDarkiv2<T extends CD> implements CDarkivADT<T> {
 		
 		// Søk gjennom alle CDer
 		for (LinearNode<T> node=første; node!=null; node=node.getNeste()) {
-			if (node.getElement().getNavn().toUpperCase().indexOf(søk.toUpperCase()) >= 0) {
-				// Hvis arrayen er for stor for et nytt element, doble størrelsen dens
+			if (
+				node.getElement()
+				.getNavn()
+				.toUpperCase()
+				.indexOf(søk.toUpperCase()
+			) >= 0) {
+				// Hvis arrayen er for stor for et nytt element,
+				// doble størrelsen dens
 				if (antall > resultat.length) {
 					CD[] nyResultat = new CD[antall*2];
 					for (int j=0; j<antall; ++j) {
@@ -79,13 +91,15 @@ public class CDarkiv2<T extends CD> implements CDarkivADT<T> {
 					}
 					resultat = nyResultat;
 				}
-				// Hvis CDens navn matcher søkeargumentet, legg den inn i arrayen
+				// Hvis CDens navn matcher søkeargumentet,
+				// legg den inn i arrayen
 				resultat[antall] = node.getElement();
 				++antall;
 			}
 		}
 		
-		// Hvis det er tomme elementer på slutten av arrayen, reduser arrayens størrelse
+		// Hvis det er tomme elementer på slutten av arrayen,
+		// reduser arrayens størrelse
 		if (antall < resultat.length) {
 			CD[] nyResultat = new CD[antall];
 			for (int i=0; i<antall; ++i) {
@@ -105,8 +119,14 @@ public class CDarkiv2<T extends CD> implements CDarkivADT<T> {
 		
 		// Søk gjennom alle CDer
 		for (LinearNode<T> node=første; node!=null; node=node.getNeste()) {
-			if (node.getElement().getArtist().toUpperCase().indexOf(søk.toUpperCase()) >= 0) {
-				// Hvis arrayen er for stor for et nytt element, doble størrelsen dens
+			if (
+				node.getElement()
+				.getArtist()
+				.toUpperCase()
+				.indexOf(søk.toUpperCase()
+			) >= 0) {
+				// Hvis arrayen er for stor for et nytt element,
+				// doble størrelsen dens
 				if (antall > resultat.length) {
 					String[] nyResultat = new String[antall*2];
 					for (int j=0; j<antall; ++j) {
@@ -114,13 +134,15 @@ public class CDarkiv2<T extends CD> implements CDarkivADT<T> {
 					}
 					resultat = nyResultat;
 				}
-				// Hvis CDens navn matcher søkeargumentet, legg den inn i arrayen
+				// Hvis CDens navn matcher søkeargumentet,
+				// legg den inn i arrayen
 				resultat[antall] = node.getElement().getArtist();
 				++antall;
 			}
 		}
 		
-		// Hvis det er tomme elementer på slutten av arrayen, reduser arrayens størrelse
+		// Hvis det er tomme elementer på slutten av arrayen,
+		// reduser arrayens størrelse
 		if (antall < resultat.length) {
 			String[] nyResultat = new String[antall];
 			for (int i=0; i<antall; ++i) {
@@ -146,5 +168,4 @@ public class CDarkiv2<T extends CD> implements CDarkivADT<T> {
 				++antall;
 		return antall;
 	}
-
 }
