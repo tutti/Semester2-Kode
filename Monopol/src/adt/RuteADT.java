@@ -3,6 +3,7 @@ package adt;
 import unntak.IkkeEiendomException;
 import unntak.IngenEierException;
 import unntak.KanIkkeBetaleException;
+import main.Farge;
 import main.Spiller;
 
 public interface RuteADT {
@@ -42,6 +43,39 @@ public interface RuteADT {
 	 * @throws IkkeEiendomException Hvis ruten ikke er en eiendom
 	 */
 	public default void settEier(Spiller spiller) throws IkkeEiendomException {
+		throw new IkkeEiendomException();
+	}
+	
+	/**
+	 * Setter leieverdiene for en gate.
+	 * Tar en array med 6 leieverdier.
+	 * Gjelder kun for GATER, ikke alle eiendommer.
+	 * @param leie En array med 6 leieverdier
+	 * @throws IkkeEiendomException Hvis ruten ikke er en eiendom
+	 */
+	public default void settLeie(int[] leie) throws IkkeEiendomException {
+		throw new IkkeEiendomException();
+	}
+	
+	/**
+	 * Setter leieverdiene for en gate.
+	 * Gjelder kun for GATER, ikke alle eiendommer.
+	 * @param tom Leien for en ubebygget gate (før dobling)
+	 * @param hus1 Leie for gate med 1 hus
+	 * @param hus2 Leie for gate med 2 hus
+	 * @param hus3 Leie for gate med 3 hus
+	 * @param hus4 Leie for gate med 4 hus
+	 * @param hotell Leie for gate med hotell
+	 * @throws IkkeEiendomException Hvis ruten ikke er en eiendom
+	 */
+	public default void settLeie (
+		int tom,
+		int hus1,
+		int hus2,
+		int hus3,
+		int hus4,
+		int hotell
+	) throws IkkeEiendomException {
 		throw new IkkeEiendomException();
 	}
 	
@@ -97,5 +131,16 @@ public interface RuteADT {
 	 */
 	public default void spillerLander(Spiller spiller, int kast) {
 		// Ingen handling
+	}
+
+	/**
+	 * Setter en rutes fargegruppe
+	 * Det anses som gyldig å sette en rutes fargegruppe selv om ruten ikke
+	 * er en gate. Ruten må likevel være en eiendom.
+	 * @param farge Fargen ruten skal ha
+	 * @throws IkkeEiendomException Hvis ruten ikke er en eiendom
+	 */
+	public default void settFarge(Farge farge) throws IkkeEiendomException {
+		throw new IkkeEiendomException();
 	}
 }

@@ -1,7 +1,7 @@
 package main;
 
 import java.awt.Color;
-
+import ruter.EiendomRute;
 import adt.RuteADT;
 
 public class Farge {
@@ -14,7 +14,7 @@ public class Farge {
 		this.farge = farge;
 	}
 	
-	public void leggTilRute(RuteADT rute) {
+	public void leggTilRute(EiendomRute rute) {
 		++antall;
 		if (antall > 2) {
 			RuteADT[] nyRuter = new RuteADT[antall];
@@ -24,16 +24,25 @@ public class Farge {
 		ruter[antall] = rute;
 	}
 	
-	private int hentAntall() {
+	public int hentAntall() {
 		return antall;
 	}
 	
-	private RuteADT[] hentRuter() {
+	public RuteADT[] hentRuter() {
 		return ruter.clone();
 	}
 	
-	private Color hentFarge() {
+	public Color hentFarge() {
 		return farge;
+	}
+	
+	public int antallEid(Spiller spiller) {
+		int antall = 0;
+		for (RuteADT rute : ruter) {
+			if (!rute.harEier()) continue;
+			if (rute.hentEier() == spiller) ++antall;
+		}
+		return antall;
 	}
 	
 }

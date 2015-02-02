@@ -14,6 +14,10 @@ public class SkatteRute implements RuteADT {
 		this.verdi = verdi;
 	}
 	
+	public String navn() {
+		return navn;
+	}
+	
 	public void spillerLander(Spiller spiller, int kast) {
 		Bank.betale(spiller, verdi);
 	}

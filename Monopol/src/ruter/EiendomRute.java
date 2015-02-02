@@ -1,6 +1,7 @@
 package ruter;
 
 import main.Bank;
+import main.Farge;
 import main.Spiller;
 import unntak.IkkeEiendomException;
 import unntak.IngenEierException;
@@ -9,10 +10,11 @@ import adt.RuteADT;
 
 public abstract class EiendomRute implements RuteADT {
 	
-	private Spiller eier = null;
-	private String navn = null;
-	private int pris = 0;
-	private boolean pantsatt = false;
+	protected Spiller eier = null;
+	protected String navn = null;
+	protected int pris = 0;
+	protected Farge farge;
+	protected boolean pantsatt = false;
 	
 	public EiendomRute(String navn, int pris) {
 		this.navn = navn;
@@ -65,6 +67,14 @@ public abstract class EiendomRute implements RuteADT {
 	@Override
 	public void spillerLander(Spiller spiller, int kast) {
 		// TODO: Spiller må enten velge å kjøpe/ikke kjøpe gaten, eller betale leie
+	}
+	
+	public abstract int beregnLeie(int kast);
+	
+	@Override
+	public void settFarge(Farge farge) {
+		this.farge = farge;
+		farge.leggTilRute(this);
 	}
 
 }

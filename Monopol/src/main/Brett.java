@@ -15,6 +15,9 @@ public class Brett {
 	private static Farge GUL = new Farge(Color.YELLOW);
 	private static Farge GRØNN = new Farge(Color.GREEN);
 	private static Farge BLÅ = new Farge(Color.BLUE);
+	private static Farge TOG = new Farge(Color.GRAY);
+	private static Farge TJENESTER = new Farge(Color.GRAY);
+	// For å forenkle koden anses settene av tog og tjenester som "fargegrupper".
 	
 	public static final int ANTALL_RUTER = 40;
 	
@@ -32,6 +35,18 @@ public class Brett {
 		ruter[8] = new GateRute("Prinsens Gate", 100);
 		ruter[9] = new GateRute("Øvre Slottsgate", 120);
 		
+		ruter[1].settFarge(BRUN);
+		ruter[3].settFarge(BRUN);
+		ruter[6].settFarge(CYAN);
+		ruter[8].settFarge(CYAN);
+		ruter[9].settFarge(CYAN);
+		
+		ruter[1].settLeie(2, 10, 30, 90, 160, 250);
+		ruter[3].settLeie(4, 20, 60, 180, 320, 450);
+		ruter[6].settLeie(6, 30, 90, 270, 400, 550);
+		ruter[8].settLeie(6, 30, 90, 270, 400, 550);
+		ruter[9].settLeie(8, 40, 100, 300, 450, 600);
+		
 		ruter[10] = new FengselRute();
 		ruter[11] = new GateRute("Nedre Slottsgate", 140);
 		ruter[12] = new TjenesteRute("Oslo Lysverker", 150);
@@ -43,6 +58,20 @@ public class Brett {
 		ruter[18] = new GateRute("Gabels Gate", 180);
 		ruter[19] = new GateRute("Ringgata", 200);
 		
+		ruter[11].settFarge(ROSA);
+		ruter[13].settFarge(ROSA);
+		ruter[14].settFarge(ROSA);
+		ruter[16].settFarge(ORANSJE);
+		ruter[18].settFarge(ORANSJE);
+		ruter[19].settFarge(ORANSJE);
+
+		ruter[11].settLeie(10, 50, 150, 450, 625, 750);
+		ruter[13].settLeie(10, 50, 150, 450, 625, 750);
+		ruter[14].settLeie(12, 60, 180, 500, 700, 900);
+		ruter[16].settLeie(14, 70, 200, 550, 750, 950);
+		ruter[18].settLeie(14, 70, 200, 550, 750, 950);
+		ruter[19].settLeie(16, 80, 220, 600, 800, 1000);
+		
 		ruter[20] = new GratisParkeringRute();
 		ruter[21] = new GateRute("Bygdøy Allé", 220);
 		ruter[22] = new LykkeRute();
@@ -53,6 +82,20 @@ public class Brett {
 		ruter[27] = new GateRute("Stortorget", 260);
 		ruter[28] = new TjenesteRute("Vannverket", 150);
 		ruter[29] = new GateRute("Torggata", 280);
+
+		ruter[21].settFarge(RØD);
+		ruter[23].settFarge(RØD);
+		ruter[24].settFarge(RØD);
+		ruter[26].settFarge(GUL);
+		ruter[27].settFarge(GUL);
+		ruter[29].settFarge(GUL);
+		
+		ruter[21].settLeie(18, 90, 250, 700, 875, 1050);
+		ruter[23].settLeie(18, 90, 250, 700, 875, 1050);
+		ruter[24].settLeie(20, 100, 300, 750, 925, 1100);
+		ruter[26].settLeie(22, 110, 330, 800, 975, 1150);
+		ruter[27].settLeie(22, 110, 330, 800, 975, 1150);
+		ruter[29].settLeie(24, 120, 360, 850, 1025, 1200);
 		
 		ruter[30] = new GåIFengselRute();
 		ruter[31] = new GateRute("Trosterudveien", 300);
@@ -64,6 +107,26 @@ public class Brett {
 		ruter[37] = new GateRute("Ullevål Hageby", 350);
 		ruter[38] = new SkatteRute("Luksusskatt", 100);
 		ruter[39] = new GateRute("Rådhusplassen", 400);
+
+		ruter[31].settFarge(GRØNN);
+		ruter[32].settFarge(GRØNN);
+		ruter[34].settFarge(GRØNN);
+		ruter[37].settFarge(BLÅ);
+		ruter[39].settFarge(BLÅ);
+		
+		ruter[31].settLeie(26, 130, 390, 900, 1100, 1275);
+		ruter[32].settLeie(26, 130, 390, 900, 1100, 1275);
+		ruter[34].settLeie(28, 150, 450, 1000, 1200, 1400);
+		ruter[37].settLeie(35, 175, 500, 1100, 1300, 1500);
+		ruter[39].settLeie(50, 200, 600, 1400, 1700, 2000);
+		
+		TOG.leggTilRute((EiendomRute)ruter[5]);
+		TOG.leggTilRute((EiendomRute)ruter[15]);
+		TOG.leggTilRute((EiendomRute)ruter[25]);
+		TOG.leggTilRute((EiendomRute)ruter[35]);
+
+		TJENESTER.leggTilRute((EiendomRute)ruter[12]);
+		TJENESTER.leggTilRute((EiendomRute)ruter[28]);
 	}
 	
 	public static RuteADT hentRute(int plass) {

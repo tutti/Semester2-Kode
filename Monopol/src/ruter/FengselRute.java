@@ -1,8 +1,6 @@
 package ruter;
 
 import main.Spiller;
-import unntak.IkkeEiendomException;
-import unntak.IngenEierException;
 import adt.RuteADT;
 
 public class FengselRute implements RuteADT {

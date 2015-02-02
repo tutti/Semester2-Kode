@@ -83,4 +83,15 @@ public abstract class Spiller {
 		}
 		throw new RuntimeException("Rute ikke funnet");
 	}
+	
+	/**
+	 * Avgjør om spilleren ønsker å kjøpe en gitt (ukjøpt) eiendom.
+	 * @param rute Eiendommen spilleren kan kjøpe.
+	 * @return true hvis spilleren vil kjøpe, false hvis ikke.
+	 */
+	//public abstract boolean vilKjøpe(EiendomRute rute);
+	
+	
+	
+	
 }
