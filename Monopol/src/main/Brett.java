@@ -7,17 +7,16 @@ import ruter.*;
 public class Brett {
 	
 	private static RuteADT[] ruter;
-	private static Farge BRUN = new Farge(new Color(139,69, 19));
-	private static Farge CYAN = new Farge(new Color(0, 255, 255));
-	private static Farge ROSA = new Farge(Color.PINK);
-	private static Farge ORANSJE = new Farge(Color.ORANGE);
-	private static Farge RØD = new Farge(Color.RED);
-	private static Farge GUL = new Farge(Color.YELLOW);
-	private static Farge GRØNN = new Farge(Color.GREEN);
-	private static Farge BLÅ = new Farge(Color.BLUE);
-	private static Farge TOG = new Farge(Color.GRAY);
-	private static Farge TJENESTER = new Farge(Color.GRAY);
-	// For å forenkle koden anses settene av tog og tjenester som "fargegrupper".
+	private static RuteGruppe BRUN = new RuteGruppe(new Color(139,69, 19));
+	private static RuteGruppe CYAN = new RuteGruppe(new Color(0, 255, 255));
+	private static RuteGruppe ROSA = new RuteGruppe(Color.PINK);
+	private static RuteGruppe ORANSJE = new RuteGruppe(Color.ORANGE);
+	private static RuteGruppe RØD = new RuteGruppe(Color.RED);
+	private static RuteGruppe GUL = new RuteGruppe(Color.YELLOW);
+	private static RuteGruppe GRØNN = new RuteGruppe(Color.GREEN);
+	private static RuteGruppe BLÅ = new RuteGruppe(Color.BLUE);
+	private static RuteGruppe TOG = new RuteGruppe(Color.GRAY);
+	private static RuteGruppe TJENESTER = new RuteGruppe(Color.GRAY);
 	
 	public static final int ANTALL_RUTER = 40;
 	
@@ -127,10 +126,12 @@ public class Brett {
 
 		TJENESTER.leggTilRute((EiendomRute)ruter[12]);
 		TJENESTER.leggTilRute((EiendomRute)ruter[28]);
+		
+		System.out.println("mooo");
 	}
 	
 	public static RuteADT hentRute(int plass) {
-		return null;
+		return ruter[plass];
 	}
 	
 	public static int hentRutenummer(RuteADT rute) {
@@ -138,5 +139,13 @@ public class Brett {
 			if (ruter[i] == rute) return i;
 		}
 		throw new RuntimeException("Rute ikke funnet");
+	}
+	
+	public static RuteADT finnRute(String navn) {
+		for (RuteADT rute : ruter) {
+			if (!rute.erEiendom()) continue;
+			if (((EiendomRute)rute).navn().equals(navn)) return rute;
+		}
+		return null;
 	}
 }

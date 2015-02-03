@@ -45,4 +45,24 @@ public class GateRute extends EiendomRute {
 		return 2*leie[0];
 	}
 	
+	/**
+	 * Bygger ett hus.
+	 */
+	public void byggHus() {
+		// TODO Lag kontroller på antall hus
+		++antallHus;
+	}
+	
+	/**
+	 * River ett hus.
+	 */
+	public void rivHus() {
+		// TODO Lag kontroller på antall hus
+		--antallHus;
+	}
+	
+	public int antallHus() {
+		return antallHus;
+	}
+	
 }

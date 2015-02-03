@@ -10,6 +10,8 @@ import java.util.HashMap;
  *
  */
 public class Bank {
+	public static final int MULTIPLIKATOR = 20;
+	
 	private static HashMap<Spiller, Integer> pengebeholdning;
 	
 	public static void tilbakestill(Spiller[] spillere) {
@@ -63,7 +65,23 @@ public class Bank {
 		pengebeholdning.put(spiller, nåBeløp+beløp);
 	}
 	
+	/**
+	 * Henter pengebeløpet en spiller eier. Endrer ingenting.
+	 * @param spiller Spilleren som eier pengene
+	 * @return Pengene spilleren eier
+	 */
 	public static int hentPengebeløp(Spiller spiller) {
 		return pengebeholdning.get(spiller);
+	}
+	
+	/**
+	 * Skriver ut et pengebeløp multiplisert med spillets multiplikator
+	 * og med lokalt prefix/suffix.
+	 * @param pengebeløp
+	 * @return
+	 */
+	public static String skrivUtPengebeløp(int pengebeløp) {
+		int modifisertBeløp = pengebeløp * MULTIPLIKATOR;
+		return "kr " + modifisertBeløp;
 	}
 }

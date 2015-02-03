@@ -4,13 +4,13 @@ import java.awt.Color;
 import ruter.EiendomRute;
 import adt.RuteADT;
 
-public class Farge {
+public class RuteGruppe {
 	
 	private Color farge;
 	private RuteADT[] ruter = new RuteADT[2];
 	private int antall = 0;
 	
-	public Farge(Color farge) {
+	public RuteGruppe(Color farge) {
 		this.farge = farge;
 	}
 	
@@ -21,7 +21,7 @@ public class Farge {
 			for (int i=0; i<antall-1; ++i) nyRuter[i] = ruter[i];
 			ruter = nyRuter;
 		}
-		ruter[antall] = rute;
+		ruter[antall-1] = rute;
 	}
 	
 	public int hentAntall() {

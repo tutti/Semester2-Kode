@@ -1,7 +1,7 @@
 package ruter;
 
 import main.Bank;
-import main.Farge;
+import main.RuteGruppe;
 import main.Spiller;
 import unntak.IkkeEiendomException;
 import unntak.IngenEierException;
@@ -13,7 +13,7 @@ public abstract class EiendomRute implements RuteADT {
 	protected Spiller eier = null;
 	protected String navn = null;
 	protected int pris = 0;
-	protected Farge farge;
+	protected RuteGruppe farge;
 	protected boolean pantsatt = false;
 	
 	public EiendomRute(String navn, int pris) {
@@ -72,7 +72,7 @@ public abstract class EiendomRute implements RuteADT {
 	public abstract int beregnLeie(int kast);
 	
 	@Override
-	public void settFarge(Farge farge) {
+	public void settFarge(RuteGruppe farge) {
 		this.farge = farge;
 		farge.leggTilRute(this);
 	}

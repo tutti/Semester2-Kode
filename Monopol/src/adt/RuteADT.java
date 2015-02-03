@@ -3,7 +3,7 @@ package adt;
 import unntak.IkkeEiendomException;
 import unntak.IngenEierException;
 import unntak.KanIkkeBetaleException;
-import main.Farge;
+import main.RuteGruppe;
 import main.Spiller;
 
 public interface RuteADT {
@@ -140,7 +140,7 @@ public interface RuteADT {
 	 * @param farge Fargen ruten skal ha
 	 * @throws IkkeEiendomException Hvis ruten ikke er en eiendom
 	 */
-	public default void settFarge(Farge farge) throws IkkeEiendomException {
+	public default void settFarge(RuteGruppe farge) throws IkkeEiendomException {
 		throw new IkkeEiendomException();
 	}
 }
