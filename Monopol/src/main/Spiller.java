@@ -64,6 +64,22 @@ public abstract class Spiller {
 	}
 	
 	/**
+	 * Legger til en eiendom til spilleren
+	 * @param eiendom Eiendommen spilleren har anskaffet
+	 */
+	public final void leggTilEiendom(EiendomRute eiendom) {
+		eiendommer.add(eiendom);
+	}
+	
+	/**
+	 * Fjerner en eiendom fra spilleren
+	 * @param eiendom Eiendommen spilleren har tapt/solgt
+	 */
+	public final void fjernEiendom(EiendomRute eiendom) {
+		eiendommer.remove(eiendom);
+	}
+	
+	/**
 	 * Henter alle eiendommene spilleren eier
 	 * @return En array med eiendommene spilleren eier
 	 */
@@ -71,6 +87,10 @@ public abstract class Spiller {
 		return (EiendomRute[]) eiendommer.toArray();
 	}
 	
+	/**
+	 * Henter antall hus spilleren eier på alle sine gater.
+	 * @return Antall hus spilleren eier
+	 */
 	public final int antallHus() {
 		int sum = 0;
 		for (EiendomRute rute : eiendommer) {
@@ -82,6 +102,10 @@ public abstract class Spiller {
 		return sum;
 	}
 	
+	/**
+	 * Henter antall hoteller spilleren eier på alle sine gater.
+	 * @return Antall hoteller spilleren eier
+	 */
 	public final int antallHoteller() {
 		int sum = 0;
 		for (EiendomRute rute : eiendommer) {
@@ -113,11 +137,15 @@ public abstract class Spiller {
 	public final void flytt(int plasser) {
 		int gammelRute = rute;
 		rute = (rute+plasser)%Brett.ANTALL_RUTER;
-		for (int i=0; i<plasser; ++i) {
-			Brett.hentRute((gammelRute+i)%Brett.ANTALL_RUTER)
-				.spillerPasserer(this, plasser);
+		Brett.hentRute(gammelRute).spillerForlater(this,  plasser);
+		if (plasser > 0) {
+			for (int i=0; i<plasser; ++i) {
+				Brett.hentRute((gammelRute+i)%Brett.ANTALL_RUTER)
+					.spillerPasserer(this, plasser);
+			}
 		}
-		Brett.hentRute(rute).spillerLander(this, plasser);
+		
+		Brett.hentRute(rute).spillerLander(this, Math.max(plasser, 0)); // TODO Fiks kast
 	}
 	
 	/**
@@ -127,6 +155,7 @@ public abstract class Spiller {
 	 */
 	public final void flyttTil(RuteADT rute) {
 		int nåRute = this.rute;
+		Brett.hentRute(nåRute).spillerForlater(this, 0); //TODO Fiks kast
 		for (int i=0; i<=Brett.ANTALL_RUTER; ++i) {
 			RuteADT nesteRute = Brett.hentRute((nåRute+i)%Brett.ANTALL_RUTER);
 			nesteRute.spillerPasserer(this, 0); // TODO: Fiks kast
@@ -135,7 +164,22 @@ public abstract class Spiller {
 				return;
 			}
 		}
-		throw new RuntimeException("Rute ikke funnet");
+		throw new RuntimeException("Ruten er ikke på brettet");
+	}
+	
+	/**
+	 * Finner avstanden mellom spilleren og en gitt rute.
+	 * Antar at spilleren skal bevege seg fremover.
+	 * @param finnRute Ruten som skal finnes
+	 * @return Antall felt frem til ruten
+	 */
+	public final int avstandTil(RuteADT finnRute) {
+		int avstand = 0;
+		while (avstand <= Brett.ANTALL_RUTER) {
+			if (Brett.hentRute((rute+++avstand)%Brett.ANTALL_RUTER) == finnRute)
+				return avstand;
+		}
+		throw new RuntimeException("Ruten er ikke på brettet");
 	}
 	
 	/**
@@ -153,5 +197,12 @@ public abstract class Spiller {
 	 * @return Spillerens bud, eller 0 dersom spilleren avslår.
 	 */
 	public abstract int vilBy(EiendomRute rute, int forrigeBud);
+	
+	/**
+	 * Den delen av turen som skjer før spilleren flytter.
+	 * Spilleren kan kjøpe og selge hus og hoteller, pantsette eller
+	 * utløse gater, samt foreslå handel for andre spillere.
+	 */
+	public abstract void handelsFase();
 	
 }

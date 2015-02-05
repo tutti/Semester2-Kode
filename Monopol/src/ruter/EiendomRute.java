@@ -24,30 +24,34 @@ public abstract class EiendomRute implements RuteADT {
 	public String navn() {
 		return navn;
 	}
+	
+	public int pris() {
+		return pris;
+	}
 
 	@Override
-	public boolean erEiendom() {
+	public final boolean erEiendom() {
 		return true;
 	}
 
 	@Override
-	public boolean harEier() throws IkkeEiendomException {
+	public final boolean harEier() throws IkkeEiendomException {
 		return (eier != null);
 	}
 
 	@Override
-	public Spiller hentEier() throws IkkeEiendomException, IngenEierException {
+	public final Spiller hentEier() throws IkkeEiendomException, IngenEierException {
 		if (eier == null) throw new IngenEierException();
 		return eier;
 	}
 
 	@Override
-	public void settEier(Spiller spiller) throws IkkeEiendomException {
+	public final void settEier(Spiller spiller) throws IkkeEiendomException {
 		eier = spiller;
 	}
 	
 	@Override
-	public void pantsett() throws IngenEierException, KanIkkeBetaleException {
+	public final void pantsett() throws IngenEierException, KanIkkeBetaleException {
 		if (eier == null) throw new IngenEierException();
 		if (pantsatt)
 			throw new RuntimeException("Eiendom er allerede pantsatt.");
@@ -55,7 +59,7 @@ public abstract class EiendomRute implements RuteADT {
 	}
 	
 	@Override
-	public void utløs() {
+	public final void utløs() {
 		if (eier == null) throw new IngenEierException();
 		if (Bank.hentPengebeløp(eier) < (pris / 2))
 			throw new KanIkkeBetaleException();
@@ -65,16 +69,35 @@ public abstract class EiendomRute implements RuteADT {
 	}
 	
 	@Override
-	public void spillerLander(Spiller spiller, int kast) {
-		// TODO: Spiller må enten velge å kjøpe/ikke kjøpe gaten, eller betale leie
+	public final boolean erPantsatt() {
+		return pantsatt;
 	}
 	
-	public abstract int beregnLeie(int kast);
+	@Override
+	public void spillerLander(Spiller spiller, int kast) {
+		if (this.harEier()) {
+			// Gaten er eid - spiller må betale leie
+			int leie = this.beregnLeie(kast);
+			Bank.betale(spiller, eier, leie);
+		} else {
+			// Gaten er ikke eid - spiller må velge om han/hun vil kjøpe
+			boolean vilKjøpe = spiller.vilKjøpe(this);
+			if (vilKjøpe) {
+				Bank.betale(spiller, this.pris);
+				this.eier = spiller;
+				spiller.leggTilEiendom(this);
+			} else {
+				// TODO Auksjon.
+			}
+		}
+	}
 	
 	@Override
 	public void settFarge(RuteGruppe farge) {
 		this.farge = farge;
 		farge.leggTilRute(this);
 	}
+	
+	public abstract int beregnLeie(int kast);
 
 }

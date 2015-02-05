@@ -102,6 +102,15 @@ public interface RuteADT {
 	}
 	
 	/**
+	 * Sjekker om en eiendom er pantsatt.
+	 * @return true hvis eiendommen er pantsatt, false hvis ikke
+	 * @throws IkkeEiendomException Hvis ruten ikke er en eiendom
+	 */
+	public default boolean erPantsatt() throws IkkeEiendomException {
+		throw new IkkeEiendomException();
+	}
+	
+	/**
 	 * Kalles når en spiller forlater en rute. Merk at ruter ikke er påkrevd å
 	 * vite hvilke spillere som er på dem; de rutene som vil vite dette, må
 	 * bruke metodene spillerForlater() og spillerLander() til å holde oversikt.

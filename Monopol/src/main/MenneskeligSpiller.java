@@ -20,4 +20,10 @@ public class MenneskeligSpiller extends Spiller {
 		return 0;
 	}
 
+	@Override
+	public void handelsFase() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

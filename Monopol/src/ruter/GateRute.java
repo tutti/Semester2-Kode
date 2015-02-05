@@ -45,18 +45,29 @@ public class GateRute extends EiendomRute {
 		return 2*leie[0];
 	}
 	
+	public boolean kanKjøpeHus() {
+		// TODO
+		return false;
+	}
+	
+	public boolean kanSelgeHus() {
+		// TODO
+		return false;
+	}
+	
 	/**
-	 * Bygger ett hus.
+	 * Kjøper ett hus på gaten. Hvis spilleren har 4 hus, bygg hotell.
 	 */
-	public void byggHus() {
+	public void kjøpHus() {
 		// TODO Lag kontroller på antall hus
 		++antallHus;
 	}
 	
 	/**
-	 * River ett hus.
+	 * Selger ett hus på gaten. Hvis spilleren har hotell, fjern hotellet
+	 * og bygg 4 hus.
 	 */
-	public void rivHus() {
+	public void selgHus() {
 		// TODO Lag kontroller på antall hus
 		--antallHus;
 	}

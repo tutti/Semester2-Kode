@@ -25,12 +25,12 @@ public class Brett {
 		
 		ruter[0] = new StartRute();
 		ruter[1] = new GateRute("Parkveien", 60);
-		ruter[2] = new LykkeRute();
+		ruter[2] = new LykkeRute("Prøv Lykken");
 		ruter[3] = new GateRute("Kirkeveien", 60);
 		ruter[4] = new SkatteRute("Inntektsskatt", 200);
 		ruter[5] = new TogRute("Oslo S", 200);
 		ruter[6] = new GateRute("Kongens Gate", 100);
-		ruter[7] = new LykkeRute();
+		ruter[7] = new LykkeRute("Sjanse");
 		ruter[8] = new GateRute("Prinsens Gate", 100);
 		ruter[9] = new GateRute("Øvre Slottsgate", 120);
 		
@@ -53,7 +53,7 @@ public class Brett {
 		ruter[14] = new GateRute("Nobels Gate", 160);
 		ruter[15] = new TogRute("Skøyen Stasjon", 200);
 		ruter[16] = new GateRute("Grensen", 180);
-		ruter[17] = new LykkeRute();
+		ruter[17] = new LykkeRute("Prøv Lykken");
 		ruter[18] = new GateRute("Gabels Gate", 180);
 		ruter[19] = new GateRute("Ringgata", 200);
 		
@@ -73,7 +73,7 @@ public class Brett {
 		
 		ruter[20] = new GratisParkeringRute();
 		ruter[21] = new GateRute("Bygdøy Allé", 220);
-		ruter[22] = new LykkeRute();
+		ruter[22] = new LykkeRute("Sjanse");
 		ruter[23] = new GateRute("Skarpsno", 220);
 		ruter[24] = new GateRute("Slemdal", 240);
 		ruter[25] = new TogRute("Grorud Stasjon", 200);
@@ -99,10 +99,10 @@ public class Brett {
 		ruter[30] = new GåIFengselRute();
 		ruter[31] = new GateRute("Trosterudveien", 300);
 		ruter[32] = new GateRute("Pilestredet", 300);
-		ruter[33] = new LykkeRute();
+		ruter[33] = new LykkeRute("Prøv Lykken");
 		ruter[34] = new GateRute("Sinsen", 320);
 		ruter[35] = new TogRute("Bryn Stasjon", 200);
-		ruter[36] = new LykkeRute();
+		ruter[36] = new LykkeRute("Sjanse");
 		ruter[37] = new GateRute("Ullevål Hageby", 350);
 		ruter[38] = new SkatteRute("Luksusskatt", 100);
 		ruter[39] = new GateRute("Rådhusplassen", 400);
@@ -126,8 +126,6 @@ public class Brett {
 
 		TJENESTER.leggTilRute((EiendomRute)ruter[12]);
 		TJENESTER.leggTilRute((EiendomRute)ruter[28]);
-		
-		System.out.println("mooo");
 	}
 	
 	public static RuteADT hentRute(int plass) {

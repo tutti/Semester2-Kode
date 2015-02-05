@@ -1,19 +1,22 @@
 package ruter;
 
+import java.util.Random;
+
 import main.Bank;
 import main.Brett;
+import main.Spill;
 import main.Spiller;
 import adt.RuteADT;
 
 /**
- * TODO Alt her.
+ * Implementasjon av feltene Prøv Lykken og Sjanse.
  * @author tutti
  *
  */
 public class LykkeRute implements RuteADT {
 	
 	private abstract class LykkeKort {
-		public String trekk;
+		public abstract String trekk(Spiller spiller);
 	}
 	
 	private LykkeKort[] sjansekort = {
@@ -37,14 +40,25 @@ public class LykkeRute implements RuteADT {
 		},
 		new LykkeKort() {
 			public String trekk(Spiller spiller) {
-				// TODO NYI
+				RuteADT rute = Brett.finnRute("Oslo Lysverker");
+				RuteADT rute2 = Brett.finnRute("Vannverket");
+				if (spiller.avstandTil(rute2) < spiller.avstandTil(rute))
+					rute = rute2;
+				spiller.flyttTil(rute);
 				return "Gå til nærmeste tjeneste. NYI";
 			}
 		},
 		new LykkeKort() {
 			public String trekk(Spiller spiller) {
-				// TODO NYI
-				return "Gå til nærmeste togbane. Betal dobbel leie. NYI";
+				// TODO
+				RuteADT rute = Brett.hentRute(5);
+				for (int plass = 15; plass <= 35; ++plass) {
+					RuteADT rute2 = Brett.hentRute(plass);
+					if (spiller.avstandTil(rute2) > spiller.avstandTil(rute))
+						rute = rute2;
+				}
+				spiller.flyttTil(rute);
+				return "Gå til nærmeste togbane. Betal dobbel leie.";
 			}
 		},
 		new LykkeKort() {
@@ -61,7 +75,7 @@ public class LykkeRute implements RuteADT {
 		},
 		new LykkeKort() {
 			public String trekk(Spiller spiller) {
-				// TODO NYI
+				spiller.flytt(-3);
 				return "Gå 3 plasser bakover. NYI";
 			}
 		},
@@ -73,12 +87,17 @@ public class LykkeRute implements RuteADT {
 		},
 		new LykkeKort() {
 			public String trekk(Spiller spiller) {
-				// TODO NYI
+				int antallHus = spiller.antallHus();
+				int antallHoteller = spiller.antallHoteller();
+				int sum = 25*antallHus + 100*antallHoteller;
+				Bank.betale(spiller, sum);
 				return "Reparer dine hus og hoteller. Betal "
 					+Bank.skrivUtPengebeløp(25)
 					+" for hvert hus, og "
 					+Bank.skrivUtPengebeløp(100)
-					+" for hvert hotell. NYI";
+					+" for hvert hotell (totalt "
+					+Bank.skrivUtPengebeløp(sum)
+					+").";
 			}
 		},
 		new LykkeKort() {
@@ -101,7 +120,10 @@ public class LykkeRute implements RuteADT {
 		},
 		new LykkeKort() {
 			public String trekk(Spiller spiller) {
-				// TODO NYI
+				Spiller[] spillere = Spill.hentSpillere();
+				for (Spiller hverspiller : spillere) {
+					Bank.betale(spiller, hverspiller, 50);
+				}
 				return "Betal hver spiller "+Bank.skrivUtPengebeløp(50)+". NYI";
 			}
 		},
@@ -166,7 +188,10 @@ public class LykkeRute implements RuteADT {
 		},
 		new LykkeKort() {
 			public String trekk(Spiller spiller) {
-				// TODO NYI
+				Spiller[] spillere = Spill.hentSpillere();
+				for (Spiller hverspiller : spillere) {
+					Bank.betale(hverspiller, spiller, 50);
+				}
 				return "Operakveld - motta "
 					+Bank.skrivUtPengebeløp(50)
 					+" fra hver spiller. NYI";
@@ -190,7 +215,10 @@ public class LykkeRute implements RuteADT {
 		},
 		new LykkeKort() {
 			public String trekk(Spiller spiller) {
-				// TODO NYI
+				Spiller[] spillere = Spill.hentSpillere();
+				for (Spiller hverspiller : spillere) {
+					Bank.betale(hverspiller, spiller, 10);
+				}
 				return "Det er din fødselsdag. Motta "
 					+Bank.skrivUtPengebeløp(10)
 					+" fra hver spiller. NYI";
@@ -230,12 +258,17 @@ public class LykkeRute implements RuteADT {
 		},
 		new LykkeKort() {
 			public String trekk(Spiller spiller) {
-				// TODO NYI
+				int antallHus = spiller.antallHus();
+				int antallHoteller = spiller.antallHoteller();
+				int sum = 40*antallHus + 115*antallHoteller;
+				Bank.betale(spiller, sum);
 				return "Reparer dine hus og hoteller. Betal "
 						+Bank.skrivUtPengebeløp(40)
 						+" for hvert hus, og "
 						+Bank.skrivUtPengebeløp(115)
-						+" for hvert hotell. NYI";
+						+" for hvert hotell (totalt "
+						+Bank.skrivUtPengebeløp(sum)
+						+").";
 			}
 		},
 		new LykkeKort() {
@@ -256,5 +289,23 @@ public class LykkeRute implements RuteADT {
 			}
 		}
 	};
+	
+	private String type;
+	private Random rnd = new Random();
+	
+	public LykkeRute(String type) {
+		if (type.equals("Prøv Lykken") || type.equals("Sjanse")) {
+			this.type = type;
+		} else {
+			throw new RuntimeException("Ugyldig lykkerute-type");
+		}
+	}
+	
+	@Override
+	public void spillerLander(Spiller spiller, int kast) {
+		LykkeKort[] kort = type.equals("Prøv Lykken") ? lykkekort : sjansekort;
+		int velgKort = rnd.nextInt(kort.length);
+		kort[velgKort].trekk(spiller);
+	}
 	
 }

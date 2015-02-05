@@ -7,10 +7,12 @@ public class Terninger {
 	
 	private class Terning {
 		
-		private int sider = 6;
+		private int sider = 0;
 		private int sisteKast = 0;
 		
-		private Terning() {}
+		private Terning() {
+			sider = 6;
+		}
 		
 		private Terning(int sider) {
 			this.sider = sider;
@@ -36,6 +38,14 @@ public class Terninger {
 	
 	public void leggTilTerning(int sider) {
 		terninger.add(new Terning(sider));
+	}
+	
+	public void leggTilTerninger(int antallTerninger) {
+		for (;antallTerninger-->0;terninger.add(new Terning()));
+	}
+	
+	public void leggTilTerninger(int antallTerninger, int sider) {
+		for (;antallTerninger-->0;terninger.add(new Terning(sider)));
 	}
 	
 	public int kast() {
