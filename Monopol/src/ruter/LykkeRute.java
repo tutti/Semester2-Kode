@@ -45,12 +45,12 @@ public class LykkeRute implements RuteADT {
 				if (spiller.avstandTil(rute2) < spiller.avstandTil(rute))
 					rute = rute2;
 				spiller.flyttTil(rute);
-				return "Gå til nærmeste tjeneste. NYI";
+				return "Gå til nærmeste tjeneste.";
 			}
 		},
 		new LykkeKort() {
 			public String trekk(Spiller spiller) {
-				// TODO
+				// TODO Betal dobbel leie
 				RuteADT rute = Brett.hentRute(5);
 				for (int plass = 15; plass <= 35; ++plass) {
 					RuteADT rute2 = Brett.hentRute(plass);
@@ -305,7 +305,9 @@ public class LykkeRute implements RuteADT {
 	public void spillerLander(Spiller spiller, int kast) {
 		LykkeKort[] kort = type.equals("Prøv Lykken") ? lykkekort : sjansekort;
 		int velgKort = rnd.nextInt(kort.length);
-		kort[velgKort].trekk(spiller);
+		/*String resultat = */kort[velgKort].trekk(spiller);
+		// TODO: Gjør noe med resultat-strengen
+//		System.out.println("Ditt kort: "+resultat);
 	}
 	
 }

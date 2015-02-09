@@ -28,6 +28,12 @@ public abstract class EiendomRute implements RuteADT {
 	public int pris() {
 		return pris;
 	}
+	
+	@Override
+	public void tilbakestill() {
+		eier = null;
+		pantsatt = false;
+	}
 
 	@Override
 	public final boolean erEiendom() {
@@ -46,7 +52,7 @@ public abstract class EiendomRute implements RuteADT {
 	}
 
 	@Override
-	public final void settEier(Spiller spiller) throws IkkeEiendomException {
+	public final void settEier(Spiller spiller) {
 		eier = spiller;
 	}
 	

@@ -7,6 +7,7 @@ public class TogRute extends EiendomRute {
 	}
 	
 	public int beregnLeie(int kast) {
+		if (eier == null) throw new RuntimeException("Ingen eier");
 		return (int)Math.pow(2, farge.antallEid(eier)-1)*25;
 	}
 }

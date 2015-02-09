@@ -1,5 +1,6 @@
 package ruter;
 
+import main.Bank;
 import adt.RuteADT;
 
 public class GateRute extends EiendomRute {
@@ -11,12 +12,20 @@ public class GateRute extends EiendomRute {
 		super(navn, pris);
 	}
 	
+	@Override
+	public void tilbakestill() {
+		super.tilbakestill();
+		antallHus = 0;
+	}
+	
+	@Override
 	public void settLeie(int[] leie) {
 		if (leie.length != 6)
 			throw new RuntimeException("Feil antall leieverdier");
 		this.leie = leie;
 	}
 	
+	@Override
 	public void settLeie(
 		int tom,
 		int hus1,
@@ -33,7 +42,9 @@ public class GateRute extends EiendomRute {
 		this.leie[5] = hotell;
 	}
 	
+	@Override
 	public int beregnLeie(int kast) {
+		if (eier == null) throw new RuntimeException("Ingen eier");
 		if (antallHus > 0) {
 			return leie[antallHus];
 		}
@@ -45,30 +56,56 @@ public class GateRute extends EiendomRute {
 		return 2*leie[0];
 	}
 	
+	/**
+	 * Sjekker IKKE om spilleren har råd.
+	 * @return
+	 */
 	public boolean kanKjøpeHus() {
-		// TODO
-		return false;
+		if (eier == null) return false;
+		if (!farge.eierAlle(eier)) return false;
+		if (antallHus >= 5) return false;
+		RuteADT[] gater = farge.hentRuter();
+		for (RuteADT rute : gater) {
+			if (!(rute instanceof GateRute)) return false;
+			GateRute gate = (GateRute)rute;
+			if (gate.antallHus < antallHus) return false;
+		}
+		return true;
 	}
 	
 	public boolean kanSelgeHus() {
-		// TODO
-		return false;
+		if (eier == null) return false;
+		if (!farge.eierAlle(eier)) return false;
+		if (antallHus == 0) return false;
+		GateRute[] gater = (GateRute[]) farge.hentRuter();
+		for (GateRute gate : gater) {
+			if (gate.antallHus > antallHus) return false;
+		}
+		return true;
+	}
+	
+	public int husPris() {
+		return farge.hentHusPris();
 	}
 	
 	/**
 	 * Kjøper ett hus på gaten. Hvis spilleren har 4 hus, bygg hotell.
 	 */
-	public void kjøpHus() {
-		// TODO Lag kontroller på antall hus
+	public void kjøpHus() throws RuntimeException {
+		if (!kanKjøpeHus()) throw new RuntimeException("Kan ikke kjøpe hus");
+		int pris = farge.hentHusPris();
+		Bank.betale(eier, pris);
 		++antallHus;
 	}
 	
 	/**
 	 * Selger ett hus på gaten. Hvis spilleren har hotell, fjern hotellet
-	 * og bygg 4 hus.
+	 * og bygg 4 hus. Spilleren får tilbake halve husets verdi
 	 */
 	public void selgHus() {
-		// TODO Lag kontroller på antall hus
+		if (!kanSelgeHus()) throw new RuntimeException("Kan ikke selge hus");
+		int pris = farge.hentHusPris();
+		Bank.motta(eier, pris/2);
 		--antallHus;
 	}
 	

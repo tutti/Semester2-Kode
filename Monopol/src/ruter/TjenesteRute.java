@@ -9,6 +9,8 @@ public class TjenesteRute extends EiendomRute implements RuteADT {
 	}
 	
 	public int beregnLeie(int kast) {
+		if (eier == null) throw new RuntimeException("Ingen eier");
+		if (farge == null) throw new RuntimeException("Ingen farge");
 		if (farge.antallEid(eier) == 2) return kast * 10;
 		return kast * 4;
 	}

@@ -7,6 +7,11 @@ import main.RuteGruppe;
 import main.Spiller;
 
 public interface RuteADT {
+	
+	public default void tilbakestill() {
+		
+	}
+	
 	/**
 	 * Sjekker om en rute er en eiendom (kan eies av en spiller).
 	 * @return true hvis ruten er en eiendom, false hvis ikke.

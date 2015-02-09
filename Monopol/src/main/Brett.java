@@ -23,6 +23,15 @@ public class Brett {
 	static {
 		ruter = new RuteADT[ANTALL_RUTER];
 		
+		BRUN.settHusPris(50);
+		CYAN.settHusPris(50);
+		ROSA.settHusPris(100);
+		ORANSJE.settHusPris(100);
+		RØD.settHusPris(150);
+		GUL.settHusPris(150);
+		GRØNN.settHusPris(200);
+		BLÅ.settHusPris(200);
+		
 		ruter[0] = new StartRute();
 		ruter[1] = new GateRute("Parkveien", 60);
 		ruter[2] = new LykkeRute("Prøv Lykken");
@@ -119,13 +128,13 @@ public class Brett {
 		ruter[37].settLeie(35, 175, 500, 1100, 1300, 1500);
 		ruter[39].settLeie(50, 200, 600, 1400, 1700, 2000);
 		
-		TOG.leggTilRute((EiendomRute)ruter[5]);
-		TOG.leggTilRute((EiendomRute)ruter[15]);
-		TOG.leggTilRute((EiendomRute)ruter[25]);
-		TOG.leggTilRute((EiendomRute)ruter[35]);
+		ruter[5].settFarge(TOG);
+		ruter[15].settFarge(TOG);
+		ruter[25].settFarge(TOG);
+		ruter[35].settFarge(TOG);
 
-		TJENESTER.leggTilRute((EiendomRute)ruter[12]);
-		TJENESTER.leggTilRute((EiendomRute)ruter[28]);
+		ruter[12].settFarge(TJENESTER);
+		ruter[28].settFarge(TJENESTER);
 	}
 	
 	public static RuteADT hentRute(int plass) {

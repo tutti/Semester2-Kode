@@ -9,6 +9,7 @@ public class RuteGruppe {
 	private Color farge;
 	private RuteADT[] ruter = new RuteADT[2];
 	private int antall = 0;
+	private int husPris = 0;
 	
 	public RuteGruppe(Color farge) {
 		this.farge = farge;
@@ -36,6 +37,14 @@ public class RuteGruppe {
 		return farge;
 	}
 	
+	public void settHusPris(int pris) {
+		husPris = pris;
+	}
+	
+	public int hentHusPris() {
+		return husPris;
+	}
+	
 	public int antallEid(Spiller spiller) {
 		int antall = 0;
 		for (RuteADT rute : ruter) {
@@ -43,6 +52,14 @@ public class RuteGruppe {
 			if (rute.hentEier() == spiller) ++antall;
 		}
 		return antall;
+	}
+	
+	public boolean eierAlle(Spiller spiller) {
+		for (RuteADT rute : ruter) {
+			if (!rute.harEier()) return false;
+			if (rute.hentEier() != spiller) return false;
+		}
+		return true;
 	}
 	
 }

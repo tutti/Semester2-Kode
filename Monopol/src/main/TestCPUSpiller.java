@@ -1,6 +1,7 @@
 package main;
 
 import ruter.EiendomRute;
+import ruter.GateRute;
 
 /**
  * En test-spiller laget for testing.
@@ -12,6 +13,8 @@ import ruter.EiendomRute;
  */
 public class TestCPUSpiller extends Spiller {
 	
+	private final int TRYGGHET = 500;
+	
 	public TestCPUSpiller(String navn) {
 		super(navn);
 	}
@@ -19,7 +22,11 @@ public class TestCPUSpiller extends Spiller {
 	@Override
 	public boolean vilKjøpe(EiendomRute rute) {
 		// Kjøp gaten hvis spilleren har råd
-		return (rute.pris() < Bank.hentPengebeløp(this) - 500);
+		boolean valg = (rute.pris() <= Bank.hentPengebeløp(this) - TRYGGHET);
+		if (valg) {
+			System.out.println(navn+" kjøper "+rute.navn()+" for "+rute.pris()+".");
+		}
+		return valg;
 	}
 
 	@Override
@@ -30,7 +37,31 @@ public class TestCPUSpiller extends Spiller {
 
 	@Override
 	public void handelsFase() {
-		// Kjøp hus på de billigste gatene det er mulig.
+		// Forsøk å kjøpe ett hus på hver eiendom
+		for (EiendomRute eiendom : eiendommer) {
+			if (Bank.hentPengebeløp(this) < TRYGGHET) break;
+			if (eiendom instanceof GateRute) {
+				GateRute gate = (GateRute)eiendom;
+				if (
+					gate.kanKjøpeHus()
+					&& Bank.hentPengebeløp(this) > gate.husPris()
+				) {
+					gate.kjøpHus();
+					System.out.println("Hus: "+navn+" kjøper hus på "+gate.navn()+" ("+gate.antallHus()+")");
+				}
+			}
+		}
+	}
+	
+	@Override
+	public void sluttFase(int kast) {
+		System.out.println(navn+" flyttet til "+rute+" med kast "+kast+". ("+Bank.hentPengebeløp(this)+")");
+	}
+	
+	@Override
+	public void konkurs() {
+		super.konkurs();
+		System.out.println(navn+" er konkurs.");
 	}
 
 }

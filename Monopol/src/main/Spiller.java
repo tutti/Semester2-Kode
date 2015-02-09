@@ -8,9 +8,11 @@ import adt.RuteADT;
 
 public abstract class Spiller {
 	
-	private String navn;
-	private int fengsel;
-	private int rute;
+	private boolean konkurs;
+	
+	protected String navn;
+	protected int fengsel;
+	protected int rute;
 	
 	public boolean slippUtAvFengselKort = false;
 	public ArrayList<EiendomRute> eiendommer;
@@ -32,12 +34,32 @@ public abstract class Spiller {
 	}
 	
 	/**
-	 * Slår en spiller konkurs.
-	 * Spiller-objektet sender beskjed til alle andre komponenter som trenger
-	 * å vite dette.
+	 * Spilleren skylder banken mer enn spilleren eier, og er konkurs.
 	 */
 	public void konkurs() {
-		// TODO: Send signal til spill om å fjerne spilleren
+		konkurs = true;
+		for (EiendomRute eiendom : eiendommer) {
+			eiendom.settEier(null);
+			eiendom.tilbakestill();
+		}
+		eiendommer.clear();
+	}
+	
+	/**
+	 * Spilleren skylder en annen spiller mer enn den eier, og er konkurs.
+	 * @param spiller
+	 */
+	public void konkurs(Spiller spiller) {
+		konkurs = true;
+		for (EiendomRute eiendom : eiendommer) {
+			eiendom.settEier(spiller);
+			spiller.leggTilEiendom(eiendom);
+		}
+		eiendommer.clear();
+	}
+	
+	public boolean erKonkurs() {
+		return konkurs;
 	}
 	
 	/**
@@ -139,7 +161,7 @@ public abstract class Spiller {
 		rute = (rute+plasser)%Brett.ANTALL_RUTER;
 		Brett.hentRute(gammelRute).spillerForlater(this,  plasser);
 		if (plasser > 0) {
-			for (int i=0; i<plasser; ++i) {
+			for (int i=1; i<plasser; ++i) {
 				Brett.hentRute((gammelRute+i)%Brett.ANTALL_RUTER)
 					.spillerPasserer(this, plasser);
 			}
@@ -155,8 +177,9 @@ public abstract class Spiller {
 	 */
 	public final void flyttTil(RuteADT rute) {
 		int nåRute = this.rute;
-		Brett.hentRute(nåRute).spillerForlater(this, 0); //TODO Fiks kast
-		for (int i=0; i<=Brett.ANTALL_RUTER; ++i) {
+		Brett.hentRute(nåRute)
+			.spillerForlater(this, 0); //TODO Fiks kast
+		for (int i=1; i<=Brett.ANTALL_RUTER; ++i) {
 			RuteADT nesteRute = Brett.hentRute((nåRute+i)%Brett.ANTALL_RUTER);
 			nesteRute.spillerPasserer(this, 0); // TODO: Fiks kast
 			if (nesteRute == rute) {
@@ -176,7 +199,7 @@ public abstract class Spiller {
 	public final int avstandTil(RuteADT finnRute) {
 		int avstand = 0;
 		while (avstand <= Brett.ANTALL_RUTER) {
-			if (Brett.hentRute((rute+++avstand)%Brett.ANTALL_RUTER) == finnRute)
+			if (Brett.hentRute((rute+(++avstand))%Brett.ANTALL_RUTER) == finnRute)
 				return avstand;
 		}
 		throw new RuntimeException("Ruten er ikke på brettet");
@@ -204,5 +227,7 @@ public abstract class Spiller {
 	 * utløse gater, samt foreslå handel for andre spillere.
 	 */
 	public abstract void handelsFase();
+	
+	public void sluttFase(int kast) {}
 	
 }

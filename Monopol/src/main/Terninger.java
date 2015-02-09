@@ -64,4 +64,12 @@ public class Terninger {
 		return sum;
 	}
 	
+	public boolean alleLike() {
+		int kast = terninger.get(0).sisteKast();
+		for (Terning t : terninger) {
+			if (t.sisteKast() != kast) return false;
+		}
+		return true;
+	}
+	
 }
