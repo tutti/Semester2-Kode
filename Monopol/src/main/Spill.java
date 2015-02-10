@@ -2,15 +2,17 @@ package main;
 
 import gui.Spillvindu;
 import adt.RuteADT;
+import adt.UIADT;
 
 public class Spill {
+	
+	public static final UIADT ui = new Spillvindu();
 	
 	private static final int ANTALL_SPILLERE = 4; // TODO Fjern
 	private static Spiller[] spillere;
 	private static boolean vunnet = false;
 	
 	public static void main(String[] args) {
-		Spillvindu vindu = new Spillvindu();
 		// Sett opp to terninger
 		Terninger terninger = new Terninger();
 		terninger.leggTilTerninger(2);
@@ -55,7 +57,7 @@ public class Spill {
 				} while (terninger.alleLike());
 				
 				// Spilleren kan nå avslutte sin tur.
-				spiller.sluttFase(kast);
+//				spiller.sluttFase(kast);
 				
 				try {
 					Thread.sleep(500);

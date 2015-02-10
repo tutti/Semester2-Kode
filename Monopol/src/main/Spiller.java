@@ -1,10 +1,10 @@
 package main;
 
 import java.util.ArrayList;
-
 import ruter.EiendomRute;
 import ruter.GateRute;
 import adt.RuteADT;
+import adt.UIADT;
 
 public abstract class Spiller {
 	
@@ -31,6 +31,7 @@ public abstract class Spiller {
 	 */
 	public void tur() {
 		if (fengsel > 0) --fengsel;
+		Spill.ui.hendelse(UIADT.SPILLER_TUR_START, this);
 	}
 	
 	/**
@@ -41,8 +42,10 @@ public abstract class Spiller {
 		for (EiendomRute eiendom : eiendommer) {
 			eiendom.settEier(null);
 			eiendom.tilbakestill();
+			Spill.ui.hendelse(UIADT.SPILLER_FJERN_EIENDOM, this, eiendom);
 		}
 		eiendommer.clear();
+		Spill.ui.hendelse(UIADT.SPILLER_KONKURS, this);
 	}
 	
 	/**
@@ -54,8 +57,11 @@ public abstract class Spiller {
 		for (EiendomRute eiendom : eiendommer) {
 			eiendom.settEier(spiller);
 			spiller.leggTilEiendom(eiendom);
+			Spill.ui.hendelse(UIADT.SPILLER_FJERN_EIENDOM, this, eiendom);
 		}
+		Bank.betale(this, spiller, Bank.hentPengebeløp(this));
 		eiendommer.clear();
+		Spill.ui.hendelse(UIADT.SPILLER_KONKURS, this);
 	}
 	
 	public boolean erKonkurs() {
@@ -75,6 +81,7 @@ public abstract class Spiller {
 	 */
 	public final void settIFengsel() {
 		fengsel = 3;
+		Spill.ui.hendelse(UIADT.SPILLER_FENGSEL, this);
 	}
 	
 	/**
@@ -91,6 +98,7 @@ public abstract class Spiller {
 	 */
 	public final void leggTilEiendom(EiendomRute eiendom) {
 		eiendommer.add(eiendom);
+		Spill.ui.hendelse(UIADT.SPILLER_MOTTA_EIENDOM, this, eiendom);
 	}
 	
 	/**
@@ -99,6 +107,7 @@ public abstract class Spiller {
 	 */
 	public final void fjernEiendom(EiendomRute eiendom) {
 		eiendommer.remove(eiendom);
+		Spill.ui.hendelse(UIADT.SPILLER_FJERN_EIENDOM, this, eiendom);
 	}
 	
 	/**
@@ -149,6 +158,7 @@ public abstract class Spiller {
 		int rutenummer = Brett.hentRutenummer(rute);
 		this.rute = rutenummer;
 		rute.spillerLander(this, 0); // TODO: Fiks kast
+		Spill.ui.hendelse(UIADT.SPILLER_PLASSERE, this, rute);
 	}
 	
 	/**
@@ -168,6 +178,7 @@ public abstract class Spiller {
 		}
 		
 		Brett.hentRute(rute).spillerLander(this, Math.max(plasser, 0)); // TODO Fiks kast
+		Spill.ui.hendelse(UIADT.SPILLER_PLASSERE, this, Brett.hentRute(rute));
 	}
 	
 	/**
@@ -184,6 +195,7 @@ public abstract class Spiller {
 			nesteRute.spillerPasserer(this, 0); // TODO: Fiks kast
 			if (nesteRute == rute) {
 				nesteRute.spillerLander(this, 0); // TODO: Fiks kast
+				Spill.ui.hendelse(UIADT.SPILLER_PLASSERE, this, rute);
 				return;
 			}
 		}
@@ -228,6 +240,6 @@ public abstract class Spiller {
 	 */
 	public abstract void handelsFase();
 	
-	public void sluttFase(int kast) {}
+//	public void sluttFase(int kast) {}
 	
 }

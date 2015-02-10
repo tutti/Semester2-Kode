@@ -2,6 +2,8 @@ package main;
 
 import java.util.HashMap;
 
+import adt.UIADT;
+
 /**
  * Banken håndterer alle penger i spillet, selv de spillerne selv eier.
  * Dette er ulikt virkelig monopol, der spillerne selv håndterer sine
@@ -33,6 +35,7 @@ public class Bank {
 			return;
 		}
 		pengebeholdning.put(spiller, nåBeløp-beløp);
+		Spill.ui.hendelse(UIADT.BANK_PENGER_ENDRET, spiller);
 	}
 	
 	/**
@@ -52,6 +55,8 @@ public class Bank {
 		}
 		pengebeholdning.put(spiller1, nåBeløp1-beløp);
 		pengebeholdning.put(spiller2, nåBeløp2+beløp);
+		Spill.ui.hendelse(UIADT.BANK_PENGER_ENDRET, spiller1);
+		Spill.ui.hendelse(UIADT.BANK_PENGER_ENDRET, spiller2);
 		
 	}
 	
@@ -63,6 +68,7 @@ public class Bank {
 	public static void motta(Spiller spiller, int beløp) {
 		int nåBeløp = pengebeholdning.get(spiller);
 		pengebeholdning.put(spiller, nåBeløp+beløp);
+		Spill.ui.hendelse(UIADT.BANK_PENGER_ENDRET, spiller);
 	}
 	
 	/**

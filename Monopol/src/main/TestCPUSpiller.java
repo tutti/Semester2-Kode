@@ -53,7 +53,7 @@ public class TestCPUSpiller extends Spiller {
 		}
 	}
 	
-	@Override
+//	@Override
 	public void sluttFase(int kast) {
 		System.out.println(navn+" flyttet til "+rute+" med kast "+kast+". ("+Bank.hentPengebeløp(this)+")");
 	}

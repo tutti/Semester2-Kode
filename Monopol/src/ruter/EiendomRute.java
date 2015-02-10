@@ -1,12 +1,16 @@
 package ruter;
 
+import java.awt.Color;
+
 import main.Bank;
 import main.RuteGruppe;
+import main.Spill;
 import main.Spiller;
 import unntak.IkkeEiendomException;
 import unntak.IngenEierException;
 import unntak.KanIkkeBetaleException;
 import adt.RuteADT;
+import adt.UIADT;
 
 public abstract class EiendomRute implements RuteADT {
 	
@@ -27,6 +31,10 @@ public abstract class EiendomRute implements RuteADT {
 	
 	public int pris() {
 		return pris;
+	}
+	
+	public Color farge() {
+		return farge.hentFarge();
 	}
 	
 	@Override
@@ -62,6 +70,7 @@ public abstract class EiendomRute implements RuteADT {
 		if (pantsatt)
 			throw new RuntimeException("Eiendom er allerede pantsatt.");
 		Bank.motta(eier, pris/2);
+		Spill.ui.hendelse(UIADT.EIENDOM_PANTSETTE, this);
 	}
 	
 	@Override
@@ -72,6 +81,7 @@ public abstract class EiendomRute implements RuteADT {
 		if (!pantsatt)
 			throw new RuntimeException("Eiendom er ikke pantsatt.");
 		Bank.betale(eier, (int)((pris/2)*1.1));
+		Spill.ui.hendelse(UIADT.EIENDOM_UTLØSE, this);
 	}
 	
 	@Override
@@ -82,6 +92,7 @@ public abstract class EiendomRute implements RuteADT {
 	@Override
 	public void spillerLander(Spiller spiller, int kast) {
 		if (this.harEier()) {
+			if (eier == spiller) return; // Spilleren eier gaten selv
 			// Gaten er eid - spiller må betale leie
 			int leie = this.beregnLeie(kast);
 			Bank.betale(spiller, eier, leie);

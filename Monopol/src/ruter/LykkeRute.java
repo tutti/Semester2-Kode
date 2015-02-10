@@ -58,7 +58,7 @@ public class LykkeRute implements RuteADT {
 						rute = rute2;
 				}
 				spiller.flyttTil(rute);
-				return "Gå til nærmeste togbane. Betal dobbel leie.";
+				return "Gå til nærmeste togbane. Betal dobbel leie (dobbel leie NYI).";
 			}
 		},
 		new LykkeKort() {
@@ -76,7 +76,7 @@ public class LykkeRute implements RuteADT {
 		new LykkeKort() {
 			public String trekk(Spiller spiller) {
 				spiller.flytt(-3);
-				return "Gå 3 plasser bakover. NYI";
+				return "Gå 3 plasser bakover.";
 			}
 		},
 		new LykkeKort() {
@@ -124,7 +124,7 @@ public class LykkeRute implements RuteADT {
 				for (Spiller hverspiller : spillere) {
 					Bank.betale(spiller, hverspiller, 50);
 				}
-				return "Betal hver spiller "+Bank.skrivUtPengebeløp(50)+". NYI";
+				return "Betal hver spiller "+Bank.skrivUtPengebeløp(50)+".";
 			}
 		},
 		new LykkeKort() {
@@ -194,7 +194,7 @@ public class LykkeRute implements RuteADT {
 				}
 				return "Operakveld - motta "
 					+Bank.skrivUtPengebeløp(50)
-					+" fra hver spiller. NYI";
+					+" fra hver spiller.";
 			}
 		},
 		new LykkeKort() {
@@ -221,7 +221,7 @@ public class LykkeRute implements RuteADT {
 				}
 				return "Det er din fødselsdag. Motta "
 					+Bank.skrivUtPengebeløp(10)
-					+" fra hver spiller. NYI";
+					+" fra hver spiller.";
 			}
 		},
 		new LykkeKort() {
@@ -308,6 +308,10 @@ public class LykkeRute implements RuteADT {
 		/*String resultat = */kort[velgKort].trekk(spiller);
 		// TODO: Gjør noe med resultat-strengen
 //		System.out.println("Ditt kort: "+resultat);
+	}
+	
+	public String type() {
+		return type;
 	}
 	
 }
