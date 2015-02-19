@@ -5,6 +5,7 @@ import ruter.TjenesteRute;
 import adt.RuteADT;
 
 public class TegnetTjenesteRute extends TegnetEiendomRute {
+	private static final long serialVersionUID = -7481862064092017390L;
 	
 	protected TjenesteRute rute;
 

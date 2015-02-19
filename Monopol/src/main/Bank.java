@@ -35,7 +35,7 @@ public class Bank {
 			return;
 		}
 		pengebeholdning.put(spiller, nåBeløp-beløp);
-		Spill.ui.hendelse(UIADT.BANK_PENGER_ENDRET, spiller);
+		Spill.ui.fortell(UIADT.BANK_PENGER_ENDRET, spiller);
 	}
 	
 	/**
@@ -55,8 +55,8 @@ public class Bank {
 		}
 		pengebeholdning.put(spiller1, nåBeløp1-beløp);
 		pengebeholdning.put(spiller2, nåBeløp2+beløp);
-		Spill.ui.hendelse(UIADT.BANK_PENGER_ENDRET, spiller1);
-		Spill.ui.hendelse(UIADT.BANK_PENGER_ENDRET, spiller2);
+		Spill.ui.fortell(UIADT.BANK_PENGER_ENDRET, spiller1);
+		Spill.ui.fortell(UIADT.BANK_PENGER_ENDRET, spiller2);
 		
 	}
 	
@@ -68,7 +68,7 @@ public class Bank {
 	public static void motta(Spiller spiller, int beløp) {
 		int nåBeløp = pengebeholdning.get(spiller);
 		pengebeholdning.put(spiller, nåBeløp+beløp);
-		Spill.ui.hendelse(UIADT.BANK_PENGER_ENDRET, spiller);
+		Spill.ui.fortell(UIADT.BANK_PENGER_ENDRET, spiller);
 	}
 	
 	/**

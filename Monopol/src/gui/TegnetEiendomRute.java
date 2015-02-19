@@ -7,6 +7,9 @@ import ruter.EiendomRute;
 import adt.RuteADT;
 
 public abstract class TegnetEiendomRute extends TegnetRute {
+	private static final long serialVersionUID = 274089860200865411L;
+
+	public static final Color LYSEGUL = new Color(255, 255, 200);
 	
 	protected EiendomRute rute;
 	protected Color farge = Color.GRAY;
@@ -23,14 +26,17 @@ public abstract class TegnetEiendomRute extends TegnetRute {
 		super.paintComponent(g);
 		g.setColor(farge);
 		g.fillRect(0, 0, bredde-1, høyde-1);
-		if (rute.harEier())
-			g.setColor(Color.YELLOW);
-		else
-			g.setColor(Color.WHITE);
+		g.setColor(Color.WHITE);
 		g.fillRect(4, 4, bredde-8, høyde-8);
 		
 		g.setColor(Color.BLACK);
 		g.drawString(rute.navn(), 5, 32);
+		
+		if (rute.harEier()) {
+			g.drawString("Eier: "+rute.hentEier().navn(), 5, 42);
+		}
+		
+		tegnSpillere(g);
 	}
 
 }

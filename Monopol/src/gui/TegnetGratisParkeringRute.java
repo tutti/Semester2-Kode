@@ -5,6 +5,7 @@ import ruter.GratisParkeringRute;
 import adt.RuteADT;
 
 public class TegnetGratisParkeringRute extends TegnetRute {
+	private static final long serialVersionUID = -1209553190772528254L;
 	
 	protected GratisParkeringRute rute;
 

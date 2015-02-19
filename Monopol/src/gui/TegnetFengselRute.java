@@ -1,13 +1,12 @@
 package gui;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
 import ruter.FengselRute;
 import adt.RuteADT;
 
 public class TegnetFengselRute extends TegnetRute {
-	
+	private static final long serialVersionUID = 6107030632314981013L;
 	protected FengselRute rute;
 
 	public TegnetFengselRute(RuteADT rute, int x, int y) {

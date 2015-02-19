@@ -8,11 +8,22 @@ public class Spill {
 	
 	public static final UIADT ui = new Spillvindu();
 	
-	private static final int ANTALL_SPILLERE = 4; // TODO Fjern
+	private static final int ANTALL_SPILLERE = 2; // TODO Fjern
+	public static final int MAKS_SPILLERE = 4;
 	private static Spiller[] spillere;
 	private static boolean vunnet = false;
+	private static Spiller spillerTur;
+	
+//	private static void vent() {
+//		try {
+//			Thread.sleep(10);
+//		} catch (InterruptedException e) {}
+//	}
 	
 	public static void main(String[] args) {
+		
+//		while (!ui.harStartet()) vent();
+		
 		// Sett opp to terninger
 		Terninger terninger = new Terninger();
 		terninger.leggTilTerninger(2);
@@ -41,6 +52,7 @@ public class Spill {
 				++fortsattMed;
 				
 				// En spillers tur
+				spillerTur = spiller;
 				spiller.tur();
 				
 				// Spilleren går inn i før-flytt-fasen (handelsfasen).
@@ -60,7 +72,7 @@ public class Spill {
 //				spiller.sluttFase(kast);
 				
 				try {
-					Thread.sleep(500);
+					Thread.sleep(1000);
 				} catch (InterruptedException e) {}
 			}
 			if (fortsattMed <= 1) vunnet = true;
@@ -74,6 +86,14 @@ public class Spill {
 		}
 		
 		
+	}
+	
+	/**
+	 * Henter spilleren som har sin tur nå.
+	 * @return Spilleren som har sin tur nå.
+	 */
+	public static Spiller hentSpiller() {
+		return spillerTur;
 	}
 	
 	public static Spiller[] hentSpillere() {

@@ -70,7 +70,7 @@ public abstract class EiendomRute implements RuteADT {
 		if (pantsatt)
 			throw new RuntimeException("Eiendom er allerede pantsatt.");
 		Bank.motta(eier, pris/2);
-		Spill.ui.hendelse(UIADT.EIENDOM_PANTSETTE, this);
+		Spill.ui.fortell(UIADT.EIENDOM_PANTSETTE, this);
 	}
 	
 	@Override
@@ -81,7 +81,7 @@ public abstract class EiendomRute implements RuteADT {
 		if (!pantsatt)
 			throw new RuntimeException("Eiendom er ikke pantsatt.");
 		Bank.betale(eier, (int)((pris/2)*1.1));
-		Spill.ui.hendelse(UIADT.EIENDOM_UTLØSE, this);
+		Spill.ui.fortell(UIADT.EIENDOM_UTLØSE, this);
 	}
 	
 	@Override

@@ -98,7 +98,7 @@ public class GateRute extends EiendomRute {
 		int pris = farge.hentHusPris();
 		Bank.betale(eier, pris);
 		++antallHus;
-		Spill.ui.hendelse(UIADT.EIENDOM_KJØPE_HUS, this);
+		Spill.ui.fortell(UIADT.EIENDOM_KJØPE_HUS, this);
 	}
 	
 	/**
@@ -110,7 +110,7 @@ public class GateRute extends EiendomRute {
 		int pris = farge.hentHusPris();
 		Bank.motta(eier, pris/2);
 		--antallHus;
-		Spill.ui.hendelse(UIADT.EIENDOM_SELGE_HUS, this);
+		Spill.ui.fortell(UIADT.EIENDOM_SELGE_HUS, this);
 	}
 	
 	public int antallHus() {

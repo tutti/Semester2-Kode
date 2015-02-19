@@ -5,6 +5,7 @@ import ruter.StartRute;
 import adt.RuteADT;
 
 public class TegnetStartRute extends TegnetRute {
+	private static final long serialVersionUID = -1418801196243725710L;
 	
 	protected StartRute rute;
 

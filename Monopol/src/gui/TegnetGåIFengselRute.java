@@ -5,6 +5,7 @@ import ruter.GÂIFengselRute;
 import adt.RuteADT;
 
 public class TegnetGÂIFengselRute extends TegnetRute {
+	private static final long serialVersionUID = -4548353952235529954L;
 	
 	protected GÂIFengselRute rute;
 

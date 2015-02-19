@@ -5,6 +5,7 @@ import ruter.LykkeRute;
 import adt.RuteADT;
 
 public class TegnetLykkeRute extends TegnetRute {
+	private static final long serialVersionUID = -6119263784571164533L;
 	
 	protected LykkeRute rute;
 

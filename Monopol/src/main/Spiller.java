@@ -12,7 +12,7 @@ public abstract class Spiller {
 	
 	protected String navn;
 	protected int fengsel;
-	protected int rute;
+	protected int rute = 0;
 	
 	public boolean slippUtAvFengselKort = false;
 	public ArrayList<EiendomRute> eiendommer;
@@ -31,7 +31,7 @@ public abstract class Spiller {
 	 */
 	public void tur() {
 		if (fengsel > 0) --fengsel;
-		Spill.ui.hendelse(UIADT.SPILLER_TUR_START, this);
+		Spill.ui.fortell(UIADT.SPILLER_TUR_START, this);
 	}
 	
 	/**
@@ -42,10 +42,11 @@ public abstract class Spiller {
 		for (EiendomRute eiendom : eiendommer) {
 			eiendom.settEier(null);
 			eiendom.tilbakestill();
-			Spill.ui.hendelse(UIADT.SPILLER_FJERN_EIENDOM, this, eiendom);
+			Spill.ui.fortell(UIADT.SPILLER_FJERN_EIENDOM, this, eiendom);
 		}
+		Bank.betale(this, Bank.hentPengebeløp(this));
 		eiendommer.clear();
-		Spill.ui.hendelse(UIADT.SPILLER_KONKURS, this);
+		Spill.ui.fortell(UIADT.SPILLER_KONKURS, this);
 	}
 	
 	/**
@@ -57,11 +58,11 @@ public abstract class Spiller {
 		for (EiendomRute eiendom : eiendommer) {
 			eiendom.settEier(spiller);
 			spiller.leggTilEiendom(eiendom);
-			Spill.ui.hendelse(UIADT.SPILLER_FJERN_EIENDOM, this, eiendom);
+			Spill.ui.fortell(UIADT.SPILLER_FJERN_EIENDOM, this, eiendom);
 		}
 		Bank.betale(this, spiller, Bank.hentPengebeløp(this));
 		eiendommer.clear();
-		Spill.ui.hendelse(UIADT.SPILLER_KONKURS, this);
+		Spill.ui.fortell(UIADT.SPILLER_KONKURS, this);
 	}
 	
 	public boolean erKonkurs() {
@@ -76,12 +77,16 @@ public abstract class Spiller {
 		return navn;
 	}
 	
+	public final int posisjon() {
+		return rute;
+	}
+	
 	/**
 	 * Setter spilleren i fengsel.
 	 */
 	public final void settIFengsel() {
 		fengsel = 3;
-		Spill.ui.hendelse(UIADT.SPILLER_FENGSEL, this);
+		Spill.ui.fortell(UIADT.SPILLER_FENGSEL, this);
 	}
 	
 	/**
@@ -98,7 +103,7 @@ public abstract class Spiller {
 	 */
 	public final void leggTilEiendom(EiendomRute eiendom) {
 		eiendommer.add(eiendom);
-		Spill.ui.hendelse(UIADT.SPILLER_MOTTA_EIENDOM, this, eiendom);
+		Spill.ui.fortell(UIADT.SPILLER_MOTTA_EIENDOM, this, eiendom);
 	}
 	
 	/**
@@ -107,7 +112,7 @@ public abstract class Spiller {
 	 */
 	public final void fjernEiendom(EiendomRute eiendom) {
 		eiendommer.remove(eiendom);
-		Spill.ui.hendelse(UIADT.SPILLER_FJERN_EIENDOM, this, eiendom);
+		Spill.ui.fortell(UIADT.SPILLER_FJERN_EIENDOM, this, eiendom);
 	}
 	
 	/**
@@ -155,10 +160,11 @@ public abstract class Spiller {
 	 * @param rute
 	 */
 	public final void plasser(RuteADT rute) {
+		int nåRute = this.rute;
 		int rutenummer = Brett.hentRutenummer(rute);
 		this.rute = rutenummer;
 		rute.spillerLander(this, 0); // TODO: Fiks kast
-		Spill.ui.hendelse(UIADT.SPILLER_PLASSERE, this, rute);
+		Spill.ui.fortell(UIADT.SPILLER_PLASSERE, this, nåRute, this.rute);
 	}
 	
 	/**
@@ -178,7 +184,7 @@ public abstract class Spiller {
 		}
 		
 		Brett.hentRute(rute).spillerLander(this, Math.max(plasser, 0)); // TODO Fiks kast
-		Spill.ui.hendelse(UIADT.SPILLER_PLASSERE, this, Brett.hentRute(rute));
+		Spill.ui.fortell(UIADT.SPILLER_PLASSERE, this, gammelRute, rute);
 	}
 	
 	/**
@@ -195,7 +201,7 @@ public abstract class Spiller {
 			nesteRute.spillerPasserer(this, 0); // TODO: Fiks kast
 			if (nesteRute == rute) {
 				nesteRute.spillerLander(this, 0); // TODO: Fiks kast
-				Spill.ui.hendelse(UIADT.SPILLER_PLASSERE, this, rute);
+				Spill.ui.fortell(UIADT.SPILLER_PLASSERE, this, nåRute, this.rute);
 				return;
 			}
 		}
