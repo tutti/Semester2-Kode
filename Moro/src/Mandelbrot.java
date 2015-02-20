@@ -11,7 +11,7 @@ public class Mandelbrot {
 		double creal = real;
 		double cimag = imag;
 		double distsq = creal * creal + cimag * cimag;
-		if (distsq > 4) {
+		if (distsq > 5) {
 			return 1;
 		}
 		for (int i = 1; i < MAX_ITERATIONS; ++i) {
@@ -20,7 +20,7 @@ public class Mandelbrot {
 			creal = lreal * lreal - limag * limag + real;
 			cimag = lreal * limag * 2 + imag;
 			distsq = lreal * lreal + limag * limag;
-			if (distsq > 4) {
+			if (distsq > 5) {
 				return i;
 			}
 		}

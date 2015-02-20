@@ -11,7 +11,7 @@ public class MandelbrotPanel extends JPanel {
 
 	private static final long serialVersionUID = 4496197751041193170L;
 	private int[][] pixels = new int[WIDTH][HEIGHT];
-	
+
 	private double x1;
 	private double y1;
 	private double x2;
@@ -23,7 +23,7 @@ public class MandelbrotPanel extends JPanel {
 		setBounds(0, 0, WIDTH, HEIGHT);
 		double color = 255;
 		for (int i = 0; i < colors.length; ++i) {
-			colors[i] = new Color(255 - (int) color, 255 - (int) (color), 255);
+			colors[i] = new Color(255 - (int) color, 255 - (int) color, 255);
 			color *= 0.95;
 		}
 	}
@@ -46,20 +46,36 @@ public class MandelbrotPanel extends JPanel {
 		}
 		repaint();
 	}
-	
+
 	public double[] getBoundaries() {
-		double[] r = {x1, y1, x2, y2};
+		double[] r = { x1, y1, x2, y2 };
 		return r;
 	}
 
 	public void paintComponent(Graphics g) {
+		// Find the smallest number of iterations.
+		// This is used to calculate how many colours are needed to display
+		// everything that's currently visible, and use the widest range of
+		// colours possible, which makes it possible to make out details at
+		// smaller levels.
+		int smallest = Mandelbrot.MAX_ITERATIONS;
 		for (int x = 0; x < WIDTH; ++x) {
 			for (int y = 0; y < HEIGHT; ++y) {
-				int iterations = pixels[x][y];
-				if (iterations == -1)
+				if (pixels[x][y] != -1) {
+					if (pixels[x][y] < smallest)
+						smallest = pixels[x][y];
+				}
+			}
+		}
+		int color_step = Mandelbrot.MAX_ITERATIONS
+				/ (Mandelbrot.MAX_ITERATIONS - smallest);
+
+		for (int x = 0; x < WIDTH; ++x) {
+			for (int y = 0; y < HEIGHT; ++y) {
+				if (pixels[x][y] == -1)
 					g.setColor(Color.BLACK);
 				else
-					g.setColor(colors[iterations]);
+					g.setColor(colors[(pixels[x][y] - smallest) * color_step]);
 				g.fillRect(x, y, 1, 1);
 			}
 		}
