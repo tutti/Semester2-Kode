@@ -5,8 +5,8 @@ import javax.swing.JPanel;
 
 public class MandelbrotPanel extends JPanel {
 
-	public static final int WIDTH = 400;
-	public static final int HEIGHT = 300;
+	public static final int WIDTH = 800;
+	public static final int HEIGHT = 600;
 	private static final Color[] colors = new Color[Mandelbrot.MAX_ITERATIONS];
 
 	private static final long serialVersionUID = 4496197751041193170L;
@@ -16,19 +16,18 @@ public class MandelbrotPanel extends JPanel {
 	private double y1;
 	private double x2;
 	private double y2;
+	
+	private float contrast;
 
 	public MandelbrotPanel() {
 		super();
 		setBoundaries(-3, -1.5, 1, 1.5);
 		setBounds(0, 0, WIDTH, HEIGHT);
-		double color = 255;
-		for (int i = 0; i < colors.length; ++i) {
-			colors[i] = new Color(255 - (int) color, 255 - (int) color, 255);
-			color *= 0.95;
-		}
+		setContrast(0.97F);
 	}
 
 	public void setBoundaries(double x1, double y1, double x2, double y2) {
+		System.out.println(x1+" "+y1+" "+x2+" "+y2);
 		this.x1 = x1;
 		this.y1 = y1;
 		this.x2 = x2;
@@ -50,6 +49,22 @@ public class MandelbrotPanel extends JPanel {
 	public double[] getBoundaries() {
 		double[] r = { x1, y1, x2, y2 };
 		return r;
+	}
+	
+	public void setContrast(float contrast) {
+		if (contrast < 0 || contrast > 1) return;
+		this.contrast = contrast;
+		double color = 255;
+		for (int i = 0; i < colors.length; ++i) {
+			colors[i] = new Color(255 - (int) color, 255 - (int) color, 255);
+			color *= contrast;
+		}
+		System.out.println("Changing contrast to "+contrast);
+		repaint();
+	}
+	
+	public float getContrast() {
+		return contrast;
 	}
 
 	public void paintComponent(Graphics g) {

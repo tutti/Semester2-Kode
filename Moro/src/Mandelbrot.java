@@ -1,6 +1,7 @@
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 
 import javax.swing.JFrame;
 
@@ -36,11 +37,12 @@ public class Mandelbrot {
 		MandelbrotPanel panel = new MandelbrotPanel();
 		vindu.getContentPane().add(panel);
 
-		vindu.addMouseListener(new MouseAdapter() {
+		MouseAdapter adapter = new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				if (e.getButton() == MouseEvent.BUTTON1) {
-					double cx = (double)(e.getX()-8) / MandelbrotPanel.WIDTH;
-					double cy = (double)(e.getY()-32) / MandelbrotPanel.HEIGHT;
+					double cx = (double) (e.getX() - 8) / MandelbrotPanel.WIDTH;
+					double cy = (double) (e.getY() - 32)
+							/ MandelbrotPanel.HEIGHT;
 					double x1 = Math.max(cx - 0.25, 0);
 					double y1 = Math.max(cy - 0.25, 0);
 					double x2 = Math.min(x1 + 0.5, MandelbrotPanel.WIDTH);
@@ -48,19 +50,27 @@ public class Mandelbrot {
 					x1 = x2 - 0.5;
 					y1 = y2 - 0.5;
 					double[] b = panel.getBoundaries();
-					double b0 = (b[2]-b[0])*x1+b[0];
-					double b1 = (b[3]-b[1])*y1+b[1];
-					double b2 = (b[2]-b[0])*x2+b[0];
-					double b3 = (b[3]-b[1])*y2+b[1];
+					double b0 = (b[2] - b[0]) * x1 + b[0];
+					double b1 = (b[3] - b[1]) * y1 + b[1];
+					double b2 = (b[2] - b[0]) * x2 + b[0];
+					double b3 = (b[3] - b[1]) * y2 + b[1];
 					panel.setBoundaries(b0, b1, b2, b3);
-				}
-				else {
+				} else {
+					// Incorrectly implemented
 					double[] b = panel.getBoundaries();
-					panel.setBoundaries(b[0]*2, b[1]*2, b[2]*2, b[3]*2);
+					panel.setBoundaries(b[0] * 2, b[1] * 2, b[2] * 2, b[3] * 2);
 				}
-				
 			}
-		});
+
+			public void mouseWheelMoved(MouseWheelEvent e) {
+				float contrast = panel.getContrast();
+				panel.setContrast(contrast + ((float)e.getWheelRotation() / 1000));
+			}
+		};
+
+		vindu.addMouseListener(adapter);
+		vindu.addMouseMotionListener(adapter);
+		vindu.addMouseWheelListener(adapter);
 
 		vindu.getContentPane().setPreferredSize(
 				new Dimension(MandelbrotPanel.WIDTH, MandelbrotPanel.HEIGHT));
