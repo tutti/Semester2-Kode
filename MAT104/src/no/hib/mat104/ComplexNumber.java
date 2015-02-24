@@ -1,8 +1,16 @@
 package no.hib.mat104;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
 public class ComplexNumber {
 	private double realPart;
 	private double imaginaryPart;
+	
+	public ComplexNumber(double realPart) {
+		this.realPart = realPart;
+		this.imaginaryPart = 0;
+	}
 	
 	public ComplexNumber(double realPart, double imaginaryPart) {
 		this.realPart = realPart;
@@ -17,19 +25,19 @@ public class ComplexNumber {
 		return new ComplexNumber(realPart + n.realPart, imaginaryPart + n.imaginaryPart);
 	}
 	
-	public ComplexNumber sub(Number n) {
+	public ComplexNumber subtrat(Number n) {
 		return new ComplexNumber(realPart - n.doubleValue(), imaginaryPart);
 	}
 	
-	public ComplexNumber sub(ComplexNumber n) {
+	public ComplexNumber subtract(ComplexNumber n) {
 		return new ComplexNumber(realPart - n.realPart, imaginaryPart - n.imaginaryPart);
 	}
 	
-	public ComplexNumber mul(Number n) {
+	public ComplexNumber multiply(Number n) {
 		return new ComplexNumber(realPart * n.doubleValue(), imaginaryPart * n.doubleValue());
 	}
 	
-	public ComplexNumber mul(ComplexNumber n) {
+	public ComplexNumber multiply(ComplexNumber n) {
 		// (a+bi)(c+di) = ac+adi+bci-bd (bdi^2 = -bd)
 		double real1 = realPart * n.realPart;
 		double imag1 = realPart * n.imaginaryPart;
@@ -38,17 +46,21 @@ public class ComplexNumber {
 		return new ComplexNumber(real1+real2, imag1+imag2);
 	}
 	
-	public ComplexNumber div(Number n) {
+	public ComplexNumber divide(Number n) {
 		return new ComplexNumber(realPart / n.doubleValue(), imaginaryPart / n.doubleValue());
 	}
 	
-	public ComplexNumber div(ComplexNumber n) {
+	public ComplexNumber divide(ComplexNumber n) {
 		// (a+bi) / (c+di) = (a+bi)(c-di) / (c+di)(c-di) = (a+bi)(c-di) / (c^2 * d^2)
 		// = (ac + adi + cbi - dbi^2) / (c^2 * d^2) = (ac + db + adi - cbi) / (c^2 * d^2)
 		double numeratorRealPart = realPart*n.realPart + imaginaryPart*n.imaginaryPart;
 		double numeratorImaginaryPart = n.realPart*imaginaryPart - realPart*n.imaginaryPart;
 		double denominator = n.realPart*n.realPart + n.imaginaryPart*n.imaginaryPart;
 		return new ComplexNumber(numeratorRealPart / denominator, numeratorImaginaryPart / denominator);
+	}
+	
+	public double abs() {
+		return Math.sqrt(realPart*realPart + imaginaryPart*imaginaryPart);
 	}
 	
 	public double getRealPart() {
@@ -73,23 +85,14 @@ public class ComplexNumber {
 	
 	@Override
 	public boolean equals(Object o) {
-		if (!(o instanceof ComplexNumber)) {
+		if (o instanceof ComplexNumber) {
+			ComplexNumber n = (ComplexNumber)o;
+			return (realPart == n.realPart && imaginaryPart == n.imaginaryPart);
+		} else if (imaginaryPart == 0 && o instanceof Number) {
+			Number n = (Number)o;
+			return (realPart == n.doubleValue());
+		} else {
 			return false;
 		}
-		ComplexNumber n = (ComplexNumber)o;
-		return (realPart == n.realPart && imaginaryPart == n.imaginaryPart);
-	}
-	
-	public static void main(String[] args) {
-		ComplexNumber a = new ComplexNumber(2, 3);
-		ComplexNumber b = new ComplexNumber(4, 2);
-		ComplexNumber c = new ComplexNumber(2, 4);
-		ComplexNumber d = new ComplexNumber(3, 3);
-		ComplexNumber e = new ComplexNumber(2, 3);
-		System.out.println(a.mul(b));
-		System.out.println(a.div(b));
-		System.out.println(a.equals(c));
-		System.out.println(a.equals(d));
-		System.out.println(a.equals(e));
 	}
 }

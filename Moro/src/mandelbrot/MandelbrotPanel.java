@@ -1,3 +1,4 @@
+package mandelbrot;
 import java.awt.Color;
 import java.awt.Graphics;
 
@@ -16,18 +17,16 @@ public class MandelbrotPanel extends JPanel {
 	private double y1;
 	private double x2;
 	private double y2;
-	
 	private float contrast;
 
 	public MandelbrotPanel() {
 		super();
 		setBoundaries(-3, -1.5, 1, 1.5);
 		setBounds(0, 0, WIDTH, HEIGHT);
-		setContrast(0.97F);
+		setContrast(0.9F);
 	}
 
 	public void setBoundaries(double x1, double y1, double x2, double y2) {
-		System.out.println(x1+" "+y1+" "+x2+" "+y2);
 		this.x1 = x1;
 		this.y1 = y1;
 		this.x2 = x2;
@@ -43,6 +42,7 @@ public class MandelbrotPanel extends JPanel {
 				pixels[i][j] = Mandelbrot.numIterations(xVal, yVal);
 			}
 		}
+		// predraw = false;
 		repaint();
 	}
 
@@ -50,19 +50,19 @@ public class MandelbrotPanel extends JPanel {
 		double[] r = { x1, y1, x2, y2 };
 		return r;
 	}
-	
+
 	public void setContrast(float contrast) {
-		if (contrast < 0 || contrast > 1) return;
+		if (contrast < 0 || contrast > 1)
+			return;
 		this.contrast = contrast;
 		double color = 255;
 		for (int i = 0; i < colors.length; ++i) {
 			colors[i] = new Color(255 - (int) color, 255 - (int) color, 255);
 			color *= contrast;
 		}
-		System.out.println("Changing contrast to "+contrast);
 		repaint();
 	}
-	
+
 	public float getContrast() {
 		return contrast;
 	}
@@ -94,6 +94,7 @@ public class MandelbrotPanel extends JPanel {
 				g.fillRect(x, y, 1, 1);
 			}
 		}
+
 	}
 
 }
