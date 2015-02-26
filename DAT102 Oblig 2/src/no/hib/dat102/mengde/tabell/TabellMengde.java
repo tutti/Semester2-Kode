@@ -91,17 +91,6 @@ public class TabellMengde<T> implements MengdeADT<T> {
 
 	@Override
 	public MengdeADT<T> union(MengdeADT<T> m2) {
-//		TabellMengde<T> begge = new TabellMengde<T>();
-//		for (int i = 0; i < antall; i++) {
-//			begge.leggTil(tab[i]);
-//		}
-//		Iterator<T> teller = m2.oppramser();
-//
-//		while (teller.hasNext()) {
-//			begge.leggTil(teller.next());
-//		}
-//
-//		return begge;
 		
 		// Ny utregning (svar på 1g og 1h):
 		// Denne metoden bruker HashMap for å redusere kompleksiteten til O(n).

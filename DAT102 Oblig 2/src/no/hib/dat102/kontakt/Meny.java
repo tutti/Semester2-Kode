@@ -3,12 +3,18 @@ package no.hib.dat102.kontakt;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * Et menysystem for kommunikasjon med bruker. Håndterer valg av alternativer,
+ * og input av strenger eller heltall.
+ * 
+ * @author tutti
+ *
+ */
 public class Meny {
-	
+
 	private static Scanner tastatur = new Scanner(System.in);
-	
 	private String[] menyvalg;
-	
+
 	/**
 	 * Intern metode som sørger for at brukeren skriver inn et heltall,
 	 * istedenfor å kaste en feil
@@ -36,24 +42,51 @@ public class Meny {
 		tastatur.nextLine();
 		return r;
 	}
-	
+
+	/**
+	 * Skriver ut et spørsmål til brukeren, tar et svar, og returnerer det.
+	 * 
+	 * @param spørsmål
+	 *            Spørsmålet til brukeren
+	 * @return Svaret til brukeren.
+	 */
 	public static String spørOmTekst(String spørsmål) {
 		System.out.print(spørsmål);
 		return tastatur.nextLine();
 	}
-	
+
+	/**
+	 * Skriver ut et spørsmål til brukeren, tar et tall som svar, og returnerer
+	 * det.
+	 * 
+	 * @param spørsmål
+	 *            Spørsmålet til brukeren
+	 * @return Svaret til brukeren.
+	 */
 	public static int spørOmTall(String spørsmål) {
 		System.out.print(spørsmål);
 		return nesteInt();
 	}
-	
-	public Meny(String ... menyvalg) {
+
+	/**
+	 * Oppretter en ny meny med et gitt sett av menyvalg
+	 * 
+	 * @param menyvalg
+	 *            En rekke strenger brukeren kan velge mellom
+	 */
+	public Meny(String... menyvalg) {
 		this.menyvalg = menyvalg;
 	}
-	
+
+	/**
+	 * Skriver ut menyen, lar brukeren velge et alternativ, og returnerer det
+	 * valgte alternativet.
+	 * 
+	 * @return Strengen tilsvarende menypunktet brukeren valgte
+	 */
 	public String menyvalg() {
-		for (int i=1; i<= menyvalg.length; ++i) {
-			System.out.println(i+". "+menyvalg[i-1]);
+		for (int i = 1; i <= menyvalg.length; ++i) {
+			System.out.println(i + ". " + menyvalg[i - 1]);
 		}
 		System.out.print("Velg menypunkt: ");
 		int valg = nesteInt();
@@ -61,7 +94,7 @@ public class Meny {
 			System.out.print("Ugyldig valg. Velg menypunkt: ");
 			valg = nesteInt();
 		}
-		return menyvalg[valg-1];
+		return menyvalg[valg - 1];
 	}
-	
+
 }

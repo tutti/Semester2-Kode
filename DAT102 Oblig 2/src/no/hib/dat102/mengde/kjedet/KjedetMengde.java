@@ -98,17 +98,6 @@ public class KjedetMengde<T> implements MengdeADT<T> {
 
 	@Override
 	public MengdeADT<T> union(MengdeADT<T> m2) {
-		// Gammel utregning (kommentert ut):
-		// KjedetMengde<T> begge = new KjedetMengde<T>();
-		// LinearNode<T> aktuell = start;
-		// while (aktuell != null) {
-		// begge.leggTil(aktuell.getElement());
-		// aktuell = aktuell.getNeste();
-		// }// while
-		// Iterator<T> teller = m2.oppramser();
-		// while (teller.hasNext())
-		// begge.leggTil(teller.next());
-		// return begge;
 
 		// Ny utregning (svar på 1g og 1h):
 		// Denne metoden bruker HashMap for å redusere kompleksiteten til O(n).
