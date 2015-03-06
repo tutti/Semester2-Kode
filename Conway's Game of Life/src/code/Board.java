@@ -18,6 +18,17 @@ public class Board {
 		}
 		return chunk;
 	}
+	
+	public void addLivingNeighbour(int x, int y) {
+		int[] cPos = calculateChunkPosition(x, y);
+		Chunk chunk = chunks.get(cPos[0], cPos[1]);
+		if (chunk == null) {
+			chunk = new Chunk(this, cPos[0], cPos[1]);
+			chunks.put(cPos[0], cPos[1], chunk);
+		}
+		chunk.addLivingNeighbour(cPos[2], cPos[3]);
+		System.out.println(chunk.isActive());
+	}
 
 	/**
 	 * Calculates a chunk position from a board position
@@ -34,7 +45,30 @@ public class Board {
 		int chunk_y = (cell_y + 12) / 25;
 		int internal_x = (cell_x + 12) % 25;
 		int internal_y = (cell_y + 12) % 25;
+		if (internal_x < 0) {
+			--chunk_x;
+			internal_x += 25;
+		}
+		if (internal_y < 0) {
+			--chunk_y;
+			internal_y += 25;
+		}
 		int[] r = { chunk_x, chunk_y, internal_x, internal_y };
+		return r;
+	}
+	
+	/**
+	 * Calculates a board position from a chunk position
+	 * @param chunk_x
+	 * @param chunk_y
+	 * @param internal_x
+	 * @param internal_y
+	 * @return
+	 */
+	public static int[] calculateBoardPosition(int chunk_x, int chunk_y, int internal_x, int internal_y) {
+		int cell_x = (25*chunk_x - 12) + internal_x;
+		int cell_y = (25*chunk_y - 12) + internal_y;
+		int[] r = { cell_x, cell_y };
 		return r;
 	}
 
@@ -53,6 +87,14 @@ public class Board {
 		}
 		return chunk.isCellAlive(cPos[2], cPos[3]);
 	}
+	
+//	public boolean isCellAlive(int chunk_x, int chunk_y, int internal_x, int internal_y) {
+//		Chunk chunk = chunks.get(chunk_x, chunk_y);
+//		if (chunk == null) {
+//			return false;
+//		}
+//		return chunk.isCellAlive(internal_x, internal_y);
+//	}
 
 	/**
 	 * Schedules a cell to become alive or dead in the next generation.
@@ -68,7 +110,7 @@ public class Board {
 			chunk = new Chunk(this, cPos[0], cPos[1]);
 			chunks.put(cPos[0], cPos[1], chunk);
 		}
-		chunk.setCellAlive(x, y, alive);
+		chunk.setCellAlive(cPos[2], cPos[3], alive);
 	}
 
 	/**
@@ -81,18 +123,11 @@ public class Board {
 			int cx = chunk.getX();
 			int cy = chunk.getY();
 			if (!chunk.isActive()) {
-				removeChunk(cx, cy);
+				chunks.remove(cx, cy);
 			}
 		}
 		for (Chunk chunk : chunks) {
 			chunk.advance();
 		}
-	}
-
-	/**
-	 * Removes a chunk from the board. Use only for chunks with no active cells.
-	 */
-	private void removeChunk(int x, int y) {
-		chunks.remove(x, y);
 	}
 }

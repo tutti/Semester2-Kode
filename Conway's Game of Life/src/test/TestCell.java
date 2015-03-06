@@ -34,65 +34,65 @@ public class TestCell {
 		assertFalse(c1.isAlive());
 	}
 	
-	@Test
-	public final void testOneNeighbour() {
-		c2.setAlive(true);
-		c1.advance();
-		c2.advance();
-		
-		c1.setAliveFromNeighbours(1);
-		c2.setAliveFromNeighbours(1);
-		c1.advance();
-		c2.advance();
-		
-		assertFalse(c1.isAlive());
-		assertFalse(c2.isAlive());
-	}
+//	@Test
+//	public final void testOneNeighbour() {
+//		c2.setAlive(true);
+//		c1.advance();
+//		c2.advance();
+//		
+//		c1.setAliveFromNeighbours(1);
+//		c2.setAliveFromNeighbours(1);
+//		c1.advance();
+//		c2.advance();
+//		
+//		assertFalse(c1.isAlive());
+//		assertFalse(c2.isAlive());
+//	}
 	
-	@Test
-	public final void testTwoNeighbours() {
-		c2.setAlive(true);
-		c1.advance();
-		c2.advance();
-		
-		c1.setAliveFromNeighbours(2);
-		c2.setAliveFromNeighbours(2);
-		c1.advance();
-		c2.advance();
-		
-		assertFalse(c1.isAlive());
-		assertTrue(c2.isAlive());
-	}
+//	@Test
+//	public final void testTwoNeighbours() {
+//		c2.setAlive(true);
+//		c1.advance();
+//		c2.advance();
+//		
+//		c1.setAliveFromNeighbours(2);
+//		c2.setAliveFromNeighbours(2);
+//		c1.advance();
+//		c2.advance();
+//		
+//		assertFalse(c1.isAlive());
+//		assertTrue(c2.isAlive());
+//	}
 	
-	@Test
-	public final void testThreeNeighbours() {
-		c2.setAlive(true);
-		c1.advance();
-		c2.advance();
-		
-		c1.setAliveFromNeighbours(3);
-		c2.setAliveFromNeighbours(3);
-		c1.advance();
-		c2.advance();
-		
-		assertTrue(c1.isAlive());
-		assertTrue(c2.isAlive());
-	}
+//	@Test
+//	public final void testThreeNeighbours() {
+//		c2.setAlive(true);
+//		c1.advance();
+//		c2.advance();
+//		
+//		c1.setAliveFromNeighbours(3);
+//		c2.setAliveFromNeighbours(3);
+//		c1.advance();
+//		c2.advance();
+//		
+//		assertTrue(c1.isAlive());
+//		assertTrue(c2.isAlive());
+//	}
 	
-	@Test
-	public final void testFourNeighbours() {
-		c2.setAlive(true);
-		c1.advance();
-		c2.advance();
-		
-		c1.setAliveFromNeighbours(4);
-		c2.setAliveFromNeighbours(4);
-		c1.advance();
-		c2.advance();
-		
-		assertFalse(c1.isAlive());
-		assertFalse(c2.isAlive());
-	}
+//	@Test
+//	public final void testFourNeighbours() {
+//		c2.setAlive(true);
+//		c1.advance();
+//		c2.advance();
+//		
+//		c1.setAliveFromNeighbours(4);
+//		c2.setAliveFromNeighbours(4);
+//		c1.advance();
+//		c2.advance();
+//		
+//		assertFalse(c1.isAlive());
+//		assertFalse(c2.isAlive());
+//	}
 	
 	@Test
 	public final void testCellActivity() {
