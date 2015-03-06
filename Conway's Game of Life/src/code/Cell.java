@@ -18,7 +18,7 @@ public class Cell {
 	}
 	
 	/**
-	 * Schedules the cell to become alive or dead in the next generation
+	 * Sets the cell to be alive or dead
 	 * @param alive
 	 */
 	public void setAlive(boolean alive) {

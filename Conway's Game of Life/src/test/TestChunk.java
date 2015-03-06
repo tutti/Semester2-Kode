@@ -77,7 +77,6 @@ public class TestChunk {
 				ch1.setCellAlive(x, y, glider[0][x][y]);
 			}
 		}
-		ch1.advance();
 		for (int i=0; i<5; ++i) {
 			System.out.println();
 			for (int x=0; x<5; ++x) {

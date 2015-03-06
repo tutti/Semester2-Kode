@@ -5,24 +5,32 @@ import java.awt.Graphics;
 
 import javax.swing.JButton;
 
+import code.Board;
 import code.Chunk;
 
 public class DisplayChunk extends JButton {
 	private static final long serialVersionUID = 815555903536680994L;
 	
-	private Chunk chunk;
+	private Board board;
+	private int x;
+	private int y;
 
-	public DisplayChunk(Chunk chunk) {
+	public DisplayChunk(Board board, int x, int y) {
 		setBorderPainted(false);
-		this.chunk = chunk;
+		this.board = board;
+		this.x = x;
+		this.y = y;
+	}
+	
+	public void moveView(int dx, int dy) {
+		this.x += dx;
+		this.y += dy;
 	}
 	
 	@Override
 	public void paintComponent(Graphics g) {
+		Chunk chunk = board.getChunk(x, y);
 		g.setColor(Color.WHITE);
-		if (!chunk.isActive()) {
-			g.setColor(Color.GREEN);
-		}
 		g.fillRect(0, 0, 150, 150);
 		
 		

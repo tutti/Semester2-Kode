@@ -27,28 +27,16 @@ public class Main {
 		// board.setCellAlive(12, 13, true);
 		// board.setCellAlive(12, 14, true);
 
-		board.setCellAlive(-37, -37, true);
-		board.setCellAlive(-37, -36, true);
-		board.setCellAlive(-36, -37, true);
-		board.setCellAlive(-36, -36, true);
-
 		Window window = new Window(board);
 		window.repaint();
-		
-		int i=0;
 
 		while (true) {
 			try {
 				Thread.sleep(100);
 			} catch (Exception e) {
 			}
-			board.setCellAlive(i-37, -37, false);
-			board.setCellAlive(i-37, -36, false);
-			board.setCellAlive(i-35, -37, true);
-			board.setCellAlive(i-35, -36, true);
 			board.advance();
 			window.repaint();
-			++i;
 		}
 	}
 }

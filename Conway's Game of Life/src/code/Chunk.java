@@ -68,32 +68,6 @@ public class Chunk {
 		cells[x][y].addLivingNeighbour();
 	}
 
-	// /**
-	// * Calculates the number of living neighbours a cell has
-	// * @param x
-	// * @param y
-	// * @return
-	// */
-	// public int livingNeighbours(int x, int y) {
-	// int livingNeighbours = 0;
-	// for (int a = x - 1; a <= x + 1; ++a) {
-	// for (int b = y - 1; b <= y + 1; ++b) {
-	// if (a==x && b==y) continue;
-	// if (a < 0 || a >= 25 || b < 0 || b >= 25) {
-	// int[] boardPos = Board.calculateBoardPosition(pos_x, pos_y, a, b);
-	// if (board.isCellAlive(boardPos[0], boardPos[1])) {
-	// ++livingNeighbours;
-	// }
-	// } else {
-	// if (cells[a][b].isAlive()) {
-	// ++livingNeighbours;
-	// }
-	// }
-	// }
-	// }
-	// return livingNeighbours;
-	// }
-
 	/**
 	 * Calculates which cells should be alive or dead in the next generation.
 	 * Does not advance any of the cells.

@@ -27,7 +27,6 @@ public class Board {
 			chunks.put(cPos[0], cPos[1], chunk);
 		}
 		chunk.addLivingNeighbour(cPos[2], cPos[3]);
-		System.out.println(chunk.isActive());
 	}
 
 	/**
