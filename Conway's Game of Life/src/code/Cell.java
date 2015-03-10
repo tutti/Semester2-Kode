@@ -25,20 +25,9 @@ public class Cell {
 		this.alive = alive;
 	}
 	
-//	/**
-//	 * Schedules the cell to become alive or dead in the next generation,
-//	 * based on the number of neighbours it has
-//	 * @param neighbours
-//	 */
-//	public void setAliveFromNeighbours(int livingNeighbours) {
-//		if (aliveNow) {
-//			if (livingNeighbours < 2 || livingNeighbours > 3) aliveNext = false;
-//			else aliveNext = true;
-//		} else {
-//			if (livingNeighbours == 3) aliveNext = true;
-//			else aliveNext = false;
-//		}
-//	}
+	public void toggleAlive() {
+		alive = !alive;
+	}
 	
 	public void addLivingNeighbour() {
 		++livingNeighbours;

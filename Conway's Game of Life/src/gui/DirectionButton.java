@@ -12,6 +12,7 @@ import javax.swing.JButton;
 
 public class DirectionButton extends JButton {
 	
+	private static final long serialVersionUID = -2499270359815873643L;
 	protected Image image;
 	
 	public DirectionButton(int dx, int dy, Window window) {
