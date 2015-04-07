@@ -1,0 +1,71 @@
+* {
+    border: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+.floatleft {
+    float: left;
+}
+
+.floatright {
+    float: right;
+}
+
+.clearfloat {
+    clear: both;
+}
+
+#wrapper {
+    width: 500px;
+}
+
+#controls {
+    margin-bottom: 20px;
+}
+
+#show-standings {
+    padding: 5px;
+    border: 1px solid darkgrey;
+}
+
+table {
+    width: 500px;
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+    table td, table th {
+        text-align: left;
+        border-bottom: 1px solid black;
+        padding: 5px;
+    }
+    table .table-header {
+        font-size: 1.3em;
+    }
+    
+    #p1-head, #p2-head {
+        width: 170px;
+    }
+    
+    #winner-head {
+        width: 140px;
+    }
+    
+    #vs-head {
+        width: 20px;
+    }
+    
+    #position-head {
+        width: 20px;
+    }
+    
+    #player-head {
+        width: 180px;
+    }
+    
+    #record-head {
+        width: 100px;
+    }
+    #opwin-head, #opopwin-head {
+        width: 100px;
+    }

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{title}}</title>
+        <link href="../view.css" rel="stylesheet" />
+        <script src="../jquery-1.11.2.js"></script>
+        <script>
+            var tournament = {{json}}
+        </script>
+        <script src="../view.js"></script>
+    </head>
+    <body>
+        <div id="wrapper">
+            <h2>{{title}}</h2>
+            <div id="controls">
+                <span>Show:</span>
+                <select id="show-round">
+                    <option value="standings">Standings</option>
+                </select>
+                <div class="clearfloat"></div>
+            </div>
+            <table id="round">
+                <thead>
+                    <tr>
+                        <th colspan="4" id="round-header" class="table-header">Round <span id="round-number">n</span></th>
+                    </tr>
+                    <tr>
+                        <th id="p1-head">Player 1</th>
+                        <th id="vs-head">&nbsp;</th>
+                        <th id="p2-head">Player 2</th>
+                        <th id="winner-head">Winner</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <table id="standings">
+                <thead>
+                    <tr>
+                        <th colspan="5" id="standings-header" class="table-header">Standings</th>
+                    </tr>
+                    <tr>
+                        <td colspan="5" id="standings-finished-rounds">Finished rounds: <span id="finished-rounds">n</span></td>
+                    </tr>
+                    <tr>
+                        <th id="position-head">&nbsp;</th>
+                        <th id="player-head">Name</th>
+                        <th id="record-head">Record</th>
+                        <th id="opwin-head">Op Win</th>
+                        <th id="opopwin-head">Op Op Win</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </body>
+</html>

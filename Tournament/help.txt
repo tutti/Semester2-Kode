@@ -1,0 +1,51 @@
+General notes:
+--------------
+Any time you enter an unknown player ID, you will be asked to supply a name to
+associate with that ID. If the ID is not meant to be kept, simply ignore this
+prompt.
+
+When you exit the program, entered IDs and names will be saved so the names
+don't need to be re-entered. To avoid having a player saved, use a negative ID
+(less than 0) instead, as these do not get saved.
+
+Command list:
+-------------
+add <player-id>
+	Adds a player to the tournament.
+
+drop <player-id>
+	Drops a player from the tournament.
+
+show players
+	Shows a list of players.
+
+show round
+	Shows information about the current round.
+
+show round <number>
+	Shows information about an earlier round.
+
+start
+	Starts the next round. Does nothing if the current round isn't finished,
+	or there are no more rounds.
+
+winner <player-id>
+	Notes the given player as having won their round.
+
+tie <player-id>
+	Notes the given player as having tied their round.
+
+finish
+	Finishes the current round. Does nothing is the round hasn't started.
+	Finishing the round will automatically save the tournament to a file.
+
+help
+	Displays this text.
+
+exit
+	Quits the tournament program. Do not do this until you are done, or you will
+	lose your data!
+
+save
+	Saves the tournament data to a file. Note that this is also done
+	automatically when you finish a round.
